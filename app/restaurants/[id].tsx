@@ -11,10 +11,12 @@ export default function RestaurantScreen() {
   const { id } = route.params as { id: string }
   const [activeTab, setActiveTab] = useState("popular")
 
-  const restaurant = {
-    id,
-    name: id === "1" ? "Italian Delights" : "Sushi Express",
-    image: id === "1" ? "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg" : "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/26/58/b1/sushi-hokkaido-sachi.jpg?w=600&h=400&s=1",
+// --- REUSABLE RESTAURANT DATA ---
+const RESTAURANTS = {
+  "1": {
+    id: "1",
+    name: "Italian Delights",
+    image: "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg",
     categories: ["Pasta", "Pizza", "Salads"],
     orderDeadline: "11:30 AM",
     groupOrderMinimum: 5,
@@ -89,10 +91,72 @@ export default function RestaurantScreen() {
         },
       ],
     },
-  }
+  },
+  "2": {
+    id: "2",
+    name: "Sushi Express",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/26/58/b1/sushi-hokkaido-sachi.jpg?w=600&h=400&s=1",
+    categories: ["Sushi", "Bento", "Ramen"],
+    orderDeadline: "11:00 AM",
+    groupOrderMinimum: 3,
+    menu: {
+      popular: [
+        {
+          id: "s1",
+          name: "Salmon Nigiri",
+          description: "Fresh salmon over seasoned rice",
+          price: 8.99,
+          image: "https://www.justonecookbook.com/wp-content/uploads/2022/01/Salmon-Nigiri-6129-I.jpg",
+        },
+        {
+          id: "s2",
+          name: "Tuna Roll",
+          description: "Tuna, rice, and seaweed",
+          price: 7.99,
+          image: "https://www.thespruceeats.com/thmb/7NQXyV2p5ZQv4f6F3s0hQG4L5dA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/tuna-maki-sushi-2031461-hero-01-3e8e1e8b4b0e4d2fa7e4b5f6c0b4b4b8.jpg",
+        },
+        {
+          id: "s3",
+          name: "Chicken Katsu Bento",
+          description: "Breaded chicken, rice, salad, and pickles",
+          price: 12.99,
+          image: "https://www.justonecookbook.com/wp-content/uploads/2021/06/Chicken-Katsu-3261-I.jpg",
+        },
+      ],
+      sushi: [
+        {
+          id: "su1",
+          name: "Eel Avocado Roll",
+          description: "Grilled eel, avocado, rice, and seaweed",
+          price: 11.99,
+          image: "https://www.thespruceeats.com/thmb/8g6Xv5D8XQw2qzG6eVw4F6nJQZk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/eel-avocado-roll-2031457-hero-01-5b6a2a0b46e04e7a8e5b6e2e6c0a0f2a.jpg",
+        },
+        {
+          id: "su2",
+          name: "California Roll",
+          description: "Imitation crab, avocado, cucumber, rice, and seaweed",
+          price: 9.99,
+          image: "https://www.thespruceeats.com/thmb/3pQ8jFQe1Kk6xkXw4f5G8hQZk8k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/california-roll-recipe-2031458-hero-01-5b6a2a0b46e04e7a8e5b6e2e6c0a0f2a.jpg",
+        },
+      ],
+      ramen: [
+        {
+          id: "r1",
+          name: "Shoyu Ramen",
+          description: "Soy sauce-based broth with noodles, pork, and egg",
+          price: 13.99,
+          image: "https://www.justonecookbook.com/wp-content/uploads/2021/06/Shoyu-Ramen-3261-I.jpg",
+        },
+      ],
+    },
+  },
+};
+// --- END REUSABLE RESTAURANT DATA ---
+
+  const restaurant = RESTAURANTS[id as keyof typeof RESTAURANTS];
 
   const renderMenuItems = (category: string) => {
-    return restaurant.menu[category].map((item: { id: string; name: string; description: string; price: number; image: string }) => (
+    return restaurant.menu[category as keyof typeof restaurant.menu].map((item: { id: string; name: string; description: string; price: number; image: string }) => (
       <View key={item.id} style={styles.menuItem}>
         <Image source={{ uri: item.image }} style={styles.menuItemImage} />
         <View style={styles.menuItemContent}>

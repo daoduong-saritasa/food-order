@@ -19,7 +19,7 @@ export default function CartScreen() {
       restaurant: "Italian Delights",
       price: 12.99,
       quantity: 1,
-      image: "https://via.placeholder.com/80x80",
+      image: "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg",
     },
     {
       id: "p2",
@@ -27,7 +27,7 @@ export default function CartScreen() {
       restaurant: "Italian Delights",
       price: 14.99,
       quantity: 2,
-      image: "https://via.placeholder.com/80x80",
+      image: "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg",
     },
   ];
 

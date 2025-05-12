@@ -1,5 +1,14 @@
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function ExploreScreen() {
   const tabBarHeight = useBottomTabBarHeight();
@@ -13,7 +22,6 @@ export default function ExploreScreen() {
       <ScrollView style={styles.scrollView}>
         <View style={styles.searchContainer}>
           <View style={styles.searchBar}>
-
             <TextInput
               style={styles.searchInput}
               placeholder="Search restaurants or dishes"
@@ -24,7 +32,11 @@ export default function ExploreScreen() {
 
         <View style={styles.categoriesSection}>
           <Text style={styles.sectionTitle}>Categories</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoriesScroll}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.categoriesScroll}
+          >
             <TouchableOpacity style={styles.categoryItem}>
               <View style={styles.categoryIcon}>
                 <Text>🍕</Text>
@@ -58,7 +70,14 @@ export default function ExploreScreen() {
             {[1, 2, 3, 4].map((id) => (
               <TouchableOpacity key={id} style={styles.restaurantGridItem}>
                 <View style={styles.restaurantImageContainer}>
-                  <View style={styles.restaurantImage} />
+                  <View style={styles.restaurantImage}>
+                    <Image
+                      source={{
+                        uri: "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg",
+                      }}
+                      style={styles.restaurantImage}
+                    />
+                  </View>
                   <View style={styles.restaurantRating}>
                     <Text style={styles.ratingText}>4.8</Text>
                   </View>
@@ -67,13 +86,19 @@ export default function ExploreScreen() {
                   {id === 1
                     ? "Italian Delights"
                     : id === 2
-                      ? "Sushi Express"
-                      : id === 3
-                        ? "Burger Joint"
-                        : "Taco Tuesday"}
+                    ? "Sushi Express"
+                    : id === 3
+                    ? "Burger Joint"
+                    : "Taco Tuesday"}
                 </Text>
                 <Text style={styles.restaurantCuisine}>
-                  {id === 1 ? "Italian" : id === 2 ? "Japanese" : id === 3 ? "American" : "Mexican"}
+                  {id === 1
+                    ? "Italian"
+                    : id === 2
+                    ? "Japanese"
+                    : id === 3
+                    ? "American"
+                    : "Mexican"}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -85,11 +110,24 @@ export default function ExploreScreen() {
           <View style={styles.recentOrdersList}>
             {[1, 2].map((id) => (
               <TouchableOpacity key={id} style={styles.recentOrderItem}>
-                <View style={styles.recentOrderImage} />
+                <View style={styles.recentOrderImage}>
+                  <Image
+                    source={{
+                      uri: "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg",
+                    }}
+                    style={styles.recentOrderImage}
+                  />
+                </View>
                 <View style={styles.recentOrderContent}>
-                  <Text style={styles.recentOrderName}>{id === 1 ? "Margherita Pizza" : "Spaghetti Carbonara"}</Text>
-                  <Text style={styles.recentOrderRestaurant}>Italian Delights</Text>
-                  <Text style={styles.recentOrderDate}>Ordered on May 10, 2023</Text>
+                  <Text style={styles.recentOrderName}>
+                    {id === 1 ? "Margherita Pizza" : "Spaghetti Carbonara"}
+                  </Text>
+                  <Text style={styles.recentOrderRestaurant}>
+                    Italian Delights
+                  </Text>
+                  <Text style={styles.recentOrderDate}>
+                    Ordered on May 10, 2023
+                  </Text>
                 </View>
                 <TouchableOpacity style={styles.reorderButton}>
                   <Text style={styles.reorderButtonText}>Reorder</Text>
@@ -100,7 +138,7 @@ export default function ExploreScreen() {
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -186,11 +224,13 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginBottom: 8,
   },
+
   restaurantImage: {
     backgroundColor: "#e5e5e5",
     width: "100%",
     height: "100%",
   },
+
   restaurantRating: {
     position: "absolute",
     top: 8,
@@ -262,4 +302,4 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontSize: 14,
   },
-})
+});
