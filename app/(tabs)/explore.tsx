@@ -1,110 +1,265 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-
-export default function TabTwoScreen() {
+export default function ExploreScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
-  );
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Explore</Text>
+      </View>
+
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.searchContainer}>
+          <View style={styles.searchBar}>
+
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search restaurants or dishes"
+              placeholderTextColor="#6b7280"
+            />
+          </View>
+        </View>
+
+        <View style={styles.categoriesSection}>
+          <Text style={styles.sectionTitle}>Categories</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoriesScroll}>
+            <TouchableOpacity style={styles.categoryItem}>
+              <View style={styles.categoryIcon}>
+                <Text>🍕</Text>
+              </View>
+              <Text style={styles.categoryName}>Pizza</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.categoryItem}>
+              <View style={styles.categoryIcon}>
+                <Text>🥗</Text>
+              </View>
+              <Text style={styles.categoryName}>Salads</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.categoryItem}>
+              <View style={styles.categoryIcon}>
+                <Text>🥪</Text>
+              </View>
+              <Text style={styles.categoryName}>Sandwiches</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.categoryItem}>
+              <View style={styles.categoryIcon}>
+                <Text>☕</Text>
+              </View>
+              <Text style={styles.categoryName}>Coffee</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Popular Restaurants</Text>
+          <View style={styles.restaurantGrid}>
+            {[1, 2, 3, 4].map((id) => (
+              <TouchableOpacity key={id} style={styles.restaurantGridItem}>
+                <View style={styles.restaurantImageContainer}>
+                  <View style={styles.restaurantImage} />
+                  <View style={styles.restaurantRating}>
+                    <Text style={styles.ratingText}>4.8</Text>
+                  </View>
+                </View>
+                <Text style={styles.restaurantName}>
+                  {id === 1
+                    ? "Italian Delights"
+                    : id === 2
+                      ? "Sushi Express"
+                      : id === 3
+                        ? "Burger Joint"
+                        : "Taco Tuesday"}
+                </Text>
+                <Text style={styles.restaurantCuisine}>
+                  {id === 1 ? "Italian" : id === 2 ? "Japanese" : id === 3 ? "American" : "Mexican"}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Recent Orders</Text>
+          <View style={styles.recentOrdersList}>
+            {[1, 2].map((id) => (
+              <TouchableOpacity key={id} style={styles.recentOrderItem}>
+                <View style={styles.recentOrderImage} />
+                <View style={styles.recentOrderContent}>
+                  <Text style={styles.recentOrderName}>{id === 1 ? "Margherita Pizza" : "Spaghetti Carbonara"}</Text>
+                  <Text style={styles.recentOrderRestaurant}>Italian Delights</Text>
+                  <Text style={styles.recentOrderDate}>Ordered on May 10, 2023</Text>
+                </View>
+                <TouchableOpacity style={styles.reorderButton}>
+                  <Text style={styles.reorderButtonText}>Reorder</Text>
+                </TouchableOpacity>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  )
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
+  header: {
+    height: 60,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e5e5e5",
   },
-});
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  scrollView: {
+    flex: 1,
+  },
+  searchContainer: {
+    padding: 16,
+  },
+  searchBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f3f4f6",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+  searchInput: {
+    flex: 1,
+    marginLeft: 8,
+    fontSize: 16,
+    color: "#1f2937",
+  },
+  categoriesSection: {
+    marginBottom: 24,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginHorizontal: 16,
+    marginBottom: 16,
+  },
+  categoriesScroll: {
+    paddingLeft: 16,
+  },
+  categoryItem: {
+    alignItems: "center",
+    marginRight: 24,
+  },
+  categoryIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: "#ecfdf5",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 8,
+  },
+  categoryName: {
+    fontSize: 14,
+    fontWeight: "500",
+  },
+  section: {
+    marginBottom: 24,
+  },
+  restaurantGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: 12,
+  },
+  restaurantGridItem: {
+    width: "50%",
+    padding: 4,
+    marginBottom: 16,
+  },
+  restaurantImageContainer: {
+    position: "relative",
+    height: 120,
+    borderRadius: 8,
+    overflow: "hidden",
+    marginBottom: 8,
+  },
+  restaurantImage: {
+    backgroundColor: "#e5e5e5",
+    width: "100%",
+    height: "100%",
+  },
+  restaurantRating: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+    backgroundColor: "rgba(0,0,0,0.7)",
+    borderRadius: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+  },
+  ratingText: {
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  restaurantName: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 2,
+  },
+  restaurantCuisine: {
+    fontSize: 14,
+    color: "#6b7280",
+  },
+  recentOrdersList: {
+    paddingHorizontal: 16,
+  },
+  recentOrderItem: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: "#e5e5e5",
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
+  },
+  recentOrderImage: {
+    width: 60,
+    height: 60,
+    borderRadius: 8,
+    backgroundColor: "#e5e5e5",
+  },
+  recentOrderContent: {
+    flex: 1,
+    marginLeft: 12,
+    justifyContent: "center",
+  },
+  recentOrderName: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 2,
+  },
+  recentOrderRestaurant: {
+    fontSize: 14,
+    color: "#6b7280",
+    marginBottom: 2,
+  },
+  recentOrderDate: {
+    fontSize: 12,
+    color: "#9ca3af",
+  },
+  reorderButton: {
+    alignSelf: "center",
+    backgroundColor: "#10b981",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 6,
+  },
+  reorderButtonText: {
+    color: "#fff",
+    fontWeight: "500",
+    fontSize: 14,
+  },
+})
