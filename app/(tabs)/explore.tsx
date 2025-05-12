@@ -1,6 +1,9 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function ExploreScreen() {
+  const tabBarHeight = useBottomTabBarHeight();
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -49,7 +52,7 @@ export default function ExploreScreen() {
           </ScrollView>
         </View>
 
-        <View style={styles.section}>
+        <View>
           <Text style={styles.sectionTitle}>Popular Restaurants</Text>
           <View style={styles.restaurantGrid}>
             {[1, 2, 3, 4].map((id) => (
@@ -77,7 +80,7 @@ export default function ExploreScreen() {
           </View>
         </View>
 
-        <View style={styles.section}>
+        <View style={{ paddingBottom: tabBarHeight }}>
           <Text style={styles.sectionTitle}>Recent Orders</Text>
           <View style={styles.recentOrdersList}>
             {[1, 2].map((id) => (
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: "#ecfdf5",
+    backgroundColor: "#fff4f0",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 8,
@@ -165,9 +168,6 @@ const styles = StyleSheet.create({
   categoryName: {
     fontSize: 14,
     fontWeight: "500",
-  },
-  section: {
-    marginBottom: 24,
   },
   restaurantGrid: {
     flexDirection: "row",
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
   },
   reorderButton: {
     alignSelf: "center",
-    backgroundColor: "#10b981",
+    backgroundColor: "#f06428",
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 6,

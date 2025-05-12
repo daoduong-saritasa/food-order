@@ -1,7 +1,17 @@
-import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function CartScreen() {
-  // This would normally be fetched from state management or API
+  const tabBarHeight = useBottomTabBarHeight();
   const cartItems = [
     {
       id: "p1",
@@ -19,14 +29,23 @@ export default function CartScreen() {
       quantity: 2,
       image: "https://via.placeholder.com/80x80",
     },
-  ]
+  ];
 
-  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
-  const deliveryFee = 2.99
-  const total = subtotal + deliveryFee
+  const subtotal = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  const deliveryFee = 2.99;
+  const total = subtotal + deliveryFee;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <Text style={styles.headerTitle}>Cart</Text>
+        </View>
+      </View>
+
       <ScrollView style={styles.scrollView}>
         <View style={styles.groupOrderCard}>
           <View style={styles.groupOrderHeader}>
@@ -35,7 +54,9 @@ export default function CartScreen() {
               <Text style={styles.tagText}>Engineering Team</Text>
             </View>
           </View>
-          <Text style={styles.groupOrderSubtitle}>Italian Delights • Order by 11:30 AM</Text>
+          <Text style={styles.groupOrderSubtitle}>
+            Italian Delights • Order by 11:30 AM
+          </Text>
 
           <View style={styles.membersList}>
             <View style={styles.memberChip}>
@@ -72,7 +93,9 @@ export default function CartScreen() {
               <Text style={styles.cartItemName}>{item.name}</Text>
               <Text style={styles.cartItemRestaurant}>{item.restaurant}</Text>
               <View style={styles.cartItemFooter}>
-                <Text style={styles.cartItemPrice}>${(item.price * item.quantity).toFixed(2)}</Text>
+                <Text style={styles.cartItemPrice}>
+                  ${(item.price * item.quantity).toFixed(2)}
+                </Text>
                 <View style={styles.quantityControls}>
                   <TouchableOpacity style={styles.quantityButton}>
                     <Text style={styles.quantityText}>-</Text>
@@ -81,7 +104,9 @@ export default function CartScreen() {
                   <TouchableOpacity style={styles.quantityButton}>
                     <Text style={styles.quantityText}>+</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={[styles.quantityButton, styles.deleteButton]}>
+                  <TouchableOpacity
+                    style={[styles.quantityButton, styles.deleteButton]}
+                  >
                     <Text style={styles.quantityText}>X</Text>
                   </TouchableOpacity>
                 </View>
@@ -107,7 +132,7 @@ export default function CartScreen() {
           </View>
         </View>
 
-        <View style={styles.notesCard}>
+        <View style={[styles.notesCard, { marginBottom: tabBarHeight + 74 }]}>
           <Text style={styles.notesTitle}>Delivery Notes</Text>
           <TextInput
             style={styles.notesInput}
@@ -118,13 +143,15 @@ export default function CartScreen() {
         </View>
       </ScrollView>
 
-      <View style={styles.footer}>
+      <View style={[styles.footer, { bottom: tabBarHeight }]}>
         <TouchableOpacity style={styles.checkoutButton}>
-          <Text style={styles.checkoutButtonText}>Place Order • ${total.toFixed(2)}</Text>
+          <Text style={styles.checkoutButtonText}>
+            Place Order • ${total.toFixed(2)}
+          </Text>
         </TouchableOpacity>
       </View>
-    </View>
-  )
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -132,16 +159,35 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
+  header: {
+    height: 60,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e5e5e5",
+    backgroundColor: "#fff",
+  },
+  headerLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
   scrollView: {
     flex: 1,
-    padding: 16,
+    paddingInline: 16,
   },
   groupOrderCard: {
     borderRadius: 12,
     borderWidth: 1,
     borderColor: "#e5e5e5",
     padding: 16,
-    marginBottom: 24,
+    marginBlock: 24,  
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
@@ -160,13 +206,13 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   tag: {
-    backgroundColor: "#d1fae5",
+    backgroundColor: "#f06428",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 16,
   },
   tagText: {
-    color: "#065f46",
+    color: "#fff",
     fontSize: 12,
     fontWeight: "500",
   },
@@ -194,13 +240,14 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: "#a7f3d0",
+    backgroundColor: "#f06428",
     alignItems: "center",
     justifyContent: "center",
   },
   memberInitials: {
     fontSize: 10,
     fontWeight: "500",
+    color: "#fff",
   },
   memberName: {
     fontSize: 12,
@@ -321,7 +368,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#e5e5e5",
     padding: 16,
-    marginBottom: 80,
     backgroundColor: "#fff",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
@@ -344,7 +390,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: "absolute",
-    bottom: 0,
     left: 0,
     right: 0,
     padding: 16,
@@ -358,7 +403,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   checkoutButton: {
-    backgroundColor: "#10b981",
+    backgroundColor: "#f06428",
     paddingVertical: 16,
     borderRadius: 8,
     alignItems: "center",
@@ -368,4 +413,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
   },
-})
+});

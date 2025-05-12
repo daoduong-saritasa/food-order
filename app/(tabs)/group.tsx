@@ -1,11 +1,14 @@
 "use client"
 
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs"
 import { Link } from "expo-router"
 import React, { useState } from "react"
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 
 export default function GroupsScreen() {
-  const [activeTab, setActiveTab] = useState("active")
+  const [activeTab, setActiveTab] = useState("active");
+
+  const tabBarHeight = useBottomTabBarHeight();
 
   // This would normally be fetched from an API
   const activeGroups = [
@@ -27,9 +30,102 @@ export default function GroupsScreen() {
       members: 3,
       status: "active",
     },
+    {
+      id: "g2",
+      name: "Marketing Team Lunch",
+      restaurant: "Sushi Express",
+      deadline: "11:00 AM",
+      timeRemaining: "5 min",
+      members: 3,
+      status: "active",
+    },
+    {
+      id: "g2",
+      name: "Marketing Team Lunch",
+      restaurant: "Sushi Express",
+      deadline: "11:00 AM",
+      timeRemaining: "5 min",
+      members: 3,
+      status: "active",
+    },
+    {
+      id: "g2",
+      name: "Marketing Team Lunch",
+      restaurant: "Sushi Express",
+      deadline: "11:00 AM",
+      timeRemaining: "5 min",
+      members: 3,
+      status: "active",
+    },
+    {
+      id: "g2",
+      name: "Marketing Team Lunch",
+      restaurant: "Sushi Express",
+      deadline: "11:00 AM",
+      timeRemaining: "5 min",
+      members: 3,
+      status: "active",
+    },
+    {
+      id: "g2",
+      name: "Marketing Team Lunch",
+      restaurant: "Sushi Express",
+      deadline: "11:00 AM",
+      timeRemaining: "5 min",
+      members: 3,
+      status: "active",
+    },
   ]
 
   const pastGroups = [
+    {
+      id: "g3",
+      name: "Engineering Team Lunch",
+      restaurant: "Burger Joint",
+      date: "Yesterday",
+      members: 6,
+      status: "completed",
+    },
+    {
+      id: "g4",
+      name: "Company Lunch",
+      restaurant: "Taco Tuesday",
+      date: "May 10, 2023",
+      members: 12,
+      status: "completed",
+    },
+    {
+      id: "g3",
+      name: "Engineering Team Lunch",
+      restaurant: "Burger Joint",
+      date: "Yesterday",
+      members: 6,
+      status: "completed",
+    },
+    {
+      id: "g4",
+      name: "Company Lunch",
+      restaurant: "Taco Tuesday",
+      date: "May 10, 2023",
+      members: 12,
+      status: "completed",
+    },
+    {
+      id: "g3",
+      name: "Engineering Team Lunch",
+      restaurant: "Burger Joint",
+      date: "Yesterday",
+      members: 6,
+      status: "completed",
+    },
+    {
+      id: "g4",
+      name: "Company Lunch",
+      restaurant: "Taco Tuesday",
+      date: "May 10, 2023",
+      members: 12,
+      status: "completed",
+    },
     {
       id: "g3",
       name: "Engineering Team Lunch",
@@ -76,10 +172,10 @@ export default function GroupsScreen() {
 
       <ScrollView style={styles.scrollView}>
         {activeTab === "active" ? (
-          <View style={styles.groupsList}>
-            {activeGroups.map((group) => (
+          <View style={[styles.groupsList, { paddingBottom: tabBarHeight }]}>
+            {activeGroups.map((group, index) => (
               <TouchableOpacity
-                key={group.id}
+                key={group.id+index}
                 style={styles.groupCard}
               >
                 <View style={styles.groupCardHeader}>
@@ -102,10 +198,10 @@ export default function GroupsScreen() {
             </TouchableOpacity>
           </View>
         ) : (
-          <View style={styles.groupsList}>
-            {pastGroups.map((group) => (
+          <View style={[styles.groupsList, { paddingBottom: tabBarHeight }]}>
+            {pastGroups.map((group, index) => (
               <TouchableOpacity
-                key={group.id}
+                key={group.id+index}
                 style={styles.groupCard}
               >
                 <View style={styles.groupCardHeader}>
@@ -169,7 +265,7 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: "#10b981",
+    borderBottomColor: "#f06428",
   },
   tabText: {
     fontSize: 16,
@@ -177,7 +273,7 @@ const styles = StyleSheet.create({
     color: "#6b7280",
   },
   activeTabText: {
-    color: "#10b981",
+    color: "#f06428",
   },
   scrollView: {
     flex: 1,
@@ -209,13 +305,13 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   statusTag: {
-    backgroundColor: "#d1fae5",
+    backgroundColor: "#f06428",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 16,
   },
   statusTagText: {
-    color: "#065f46",
+    color: "#fff",
     fontSize: 12,
     fontWeight: "500",
   },
@@ -256,7 +352,7 @@ const styles = StyleSheet.create({
     color: "#6b7280",
   },
   createButton: {
-    backgroundColor: "#10b981",
+    backgroundColor: "#f06428",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

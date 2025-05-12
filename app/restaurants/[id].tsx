@@ -1,20 +1,20 @@
 "use client"
 
-import { useNavigation, useRoute } from "@react-navigation/native"
+import { IconSymbol } from "@/components/ui/IconSymbol"
+import { useRoute } from "@react-navigation/native"
+import { Link } from "expo-router"
 import { useState } from "react"
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 
 export default function RestaurantScreen() {
-  const navigation = useNavigation<any>()
   const route = useRoute<any>()
   const { id } = route.params as { id: string }
   const [activeTab, setActiveTab] = useState("popular")
 
-  // This would normally be fetched from an API based on the ID
   const restaurant = {
     id,
     name: id === "1" ? "Italian Delights" : "Sushi Express",
-    image: "https://via.placeholder.com/600x200",
+    image: id === "1" ? "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg" : "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/26/58/b1/sushi-hokkaido-sachi.jpg?w=600&h=400&s=1",
     categories: ["Pasta", "Pizza", "Salads"],
     orderDeadline: "11:30 AM",
     groupOrderMinimum: 5,
@@ -25,21 +25,21 @@ export default function RestaurantScreen() {
           name: "Margherita Pizza",
           description: "Classic tomato sauce, mozzarella, and basil",
           price: 12.99,
-          image: "https://via.placeholder.com/80x80",
+          image: "https://uk.ooni.com/cdn/shop/articles/20220211142645-margherita-9920_e41233d5-dcec-461c-b07e-03245f031dfe.jpg?v=1737105431&width=1080",
         },
         {
           id: "p2",
           name: "Spaghetti Carbonara",
           description: "Creamy sauce with pancetta and parmesan",
           price: 14.99,
-          image: "https://via.placeholder.com/80x80",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2H7hGm-cJD6WZB_yFyU6lBXTV-HMabJ4cw&s",
         },
         {
           id: "p3",
           name: "Caesar Salad",
           description: "Romaine lettuce, croutons, parmesan, and Caesar dressing",
           price: 9.99,
-          image: "https://via.placeholder.com/80x80",
+          image: "https://cdn.loveandlemons.com/wp-content/uploads/2024/12/caesar-salad.jpg",
         },
       ],
       pasta: [
@@ -48,21 +48,21 @@ export default function RestaurantScreen() {
           name: "Spaghetti Bolognese",
           description: "Rich meat sauce with tomatoes and herbs",
           price: 13.99,
-          image: "https://via.placeholder.com/80x80",
+          image: "https://images.ctfassets.net/uexfe9h31g3m/6QtnhruEFi8qgEyYAICkyS/ab01e9b1da656f35dd1a721c810162a0/Spaghetti_bolognese_4x3_V2_LOW_RES.jpg?q=90&w=1200&h=600",
         },
         {
           id: "pa2",
           name: "Fettuccine Alfredo",
           description: "Creamy parmesan sauce",
           price: 12.99,
-          image: "https://via.placeholder.com/80x80",
+          image: "https://cookingwithcassandra.com/wp-content/uploads/2022/10/Copy-of-Copy-of-DSC03750-2-scaled.jpg",
         },
         {
           id: "pa3",
           name: "Lasagna",
           description: "Layered pasta with meat sauce and cheese",
           price: 15.99,
-          image: "https://via.placeholder.com/80x80",
+          image: "https://cafedelites.com/wp-content/uploads/2018/01/Mamas-Best-Lasagna-IMAGE-43.jpg",
         },
       ],
       pizza: [
@@ -71,21 +71,21 @@ export default function RestaurantScreen() {
           name: "Pepperoni Pizza",
           description: "Tomato sauce, mozzarella, and pepperoni",
           price: 13.99,
-          image: "https://via.placeholder.com/80x80",
+          image: "https://www.simplyrecipes.com/thmb/I4razizFmeF8ua2jwuD0Pq4XpP8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-4-82c60893fcad4ade906a8a9f59b8da9d.jpg",
         },
         {
           id: "pi2",
           name: "Vegetarian Pizza",
           description: "Tomato sauce, mozzarella, and assorted vegetables",
           price: 14.99,
-          image: "https://via.placeholder.com/80x80",
+          image: "https://cdn.loveandlemons.com/wp-content/uploads/2023/02/vegetarian-pizza.jpg",
         },
         {
           id: "pi3",
           name: "Hawaiian Pizza",
           description: "Tomato sauce, mozzarella, ham, and pineapple",
           price: 14.99,
-          image: "https://via.placeholder.com/80x80",
+          image: "https://dinnerthendessert.com/wp-content/uploads/2023/06/Hawaiian-Pizza-7.jpg",
         },
       ],
     },
@@ -111,6 +111,26 @@ export default function RestaurantScreen() {
 
   return (
     <View style={styles.container}>
+      <SafeAreaView style={styles.header}>
+        <TouchableOpacity style={styles.backButton}>
+          <Link href="/">
+            <View style={styles.backButtonContent}>
+              <IconSymbol size={28} name="chevron.left" color="#000"/>
+              <Text style={styles.backButtonText}>Back</Text>
+            </View>
+          </Link>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.cartButton}>
+          <Link href="/cart">
+            <View style={styles.cartIconContainer}>
+              <IconSymbol size={25} name="cart" color="#f06428" />
+              <View style={styles.cartBadge}>
+                <Text style={styles.cartBadgeText}>3</Text>
+              </View>
+            </View>
+          </Link>
+        </TouchableOpacity>
+      </SafeAreaView>
       <ScrollView style={styles.scrollView}>
         <View style={styles.heroContainer}>
           <Image source={{ uri: restaurant.image }} style={styles.heroImage} />
@@ -163,17 +183,6 @@ export default function RestaurantScreen() {
           <View style={styles.menuContainer}>{renderMenuItems(activeTab)}</View>
         </View>
       </ScrollView>
-
-      <SafeAreaView style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-      
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.cartButton} onPress={() => navigation.navigate("Cart")}>
-          <View style={styles.cartBadge}>
-            <Text style={styles.cartBadgeText}>3</Text>
-          </View>
-        </TouchableOpacity>
-      </SafeAreaView>
     </View>
   )
 }
@@ -188,16 +197,15 @@ const styles = StyleSheet.create({
   },
   header: {
     position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
+    top: -10,
+    left: 10,
+    right: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 16,
     zIndex: 10,
   },
   backButton: {
-    width: 40,
+    width: 70,
     height: 40,
     borderRadius: 20,
     backgroundColor: "rgba(255, 255, 255, 0.9)",
@@ -209,24 +217,26 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderWidth: 1,
+    borderColor: "#e5e5e5",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
   },
   cartBadge: {
     position: "absolute",
-    top: -5,
-    right: -5,
-    width: 20,
-    height: 20,
+    top: 3,
+    right: 3,
+    width: 15,
+    height: 15,
     borderRadius: 10,
-    backgroundColor: "#10b981",
+    backgroundColor: "#f06428",
     alignItems: "center",
     justifyContent: "center",
   },
   cartBadgeText: {
     color: "#fff",
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: "bold",
   },
   heroContainer: {
@@ -278,7 +288,7 @@ const styles = StyleSheet.create({
   },
   primaryButton: {
     flex: 1,
-    backgroundColor: "#10b981",
+    backgroundColor: "#f06428",
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: "center",
@@ -317,14 +327,14 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: "#10b981",
+    borderBottomColor: "#f06428",
   },
   tabText: {
     color: "#6b7280",
     fontWeight: "500",
   },
   activeTabText: {
-    color: "#10b981",
+    color: "#f06428",
     fontWeight: "600",
   },
   menuContainer: {
@@ -374,7 +384,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   addButton: {
-    backgroundColor: "#10b981",
+    backgroundColor: "#f06428",
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 6,
@@ -383,5 +393,21 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "500",
     fontSize: 14,
+  },
+  backButtonContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  backButtonText: {
+    color: "#000",
+    fontWeight: "600",
+    fontSize: 14,
+  },
+  cartIconContainer: {
+    position: "relative",
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
   },
 })

@@ -1,3 +1,6 @@
+import { IconSymbol } from "@/components/ui/IconSymbol";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+
 import { Link } from "expo-router";
 import {
   Image,
@@ -10,16 +13,21 @@ import {
 } from "react-native";
 
 export default function HomeScreen() {
+    const tabBarHeight = useBottomTabBarHeight();
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Text style={styles.headerTitle}>LunchHub</Text>
         </View>
-        <TouchableOpacity style={styles.cartButton}>
+        <TouchableOpacity>
           <Link href="/cart">
-            <View style={styles.cartBadge}>
-              <Text style={styles.cartBadgeText}>3</Text>
+            <View style={styles.cartIconContainer}>
+              <IconSymbol size={25} name="cart" color="#f06428" />
+              <View style={styles.cartBadge}>
+                <Text style={styles.cartBadgeText}>3</Text>
+              </View>
             </View>
           </Link>
         </TouchableOpacity>
@@ -30,10 +38,10 @@ export default function HomeScreen() {
           <Text style={styles.sectionTitle}>Today Restaurants</Text>
 
           <TouchableOpacity style={styles.restaurantCard}>
-            <Link href={{ pathname: "/restaurant" }}>
+            <Link href={`/restaurants/1`}>
               <View style={styles.restaurantImageContainer}>
                 <Image
-                  source={{ uri: "https://via.placeholder.com/400x160" }}
+                  source={{ uri: "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg" }}
                   style={styles.restaurantImage}
                 />
                 <View style={styles.restaurantImageOverlay}>
@@ -59,29 +67,31 @@ export default function HomeScreen() {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.restaurantCard}>
-            <View style={styles.restaurantImageContainer}>
-              <Image
-                source={{ uri: "https://via.placeholder.com/400x160" }}
-                style={styles.restaurantImage}
-              />
-              <View style={styles.restaurantImageOverlay}>
-                <Text style={styles.restaurantName}>Sushi Express</Text>
-                <Text style={styles.restaurantCuisine}>
-                  Sushi, Bento, Ramen
+            <Link href={`/restaurants/2`}>
+              <View style={styles.restaurantImageContainer}>
+                <Image
+                  source={{ uri: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/26/58/b1/sushi-hokkaido-sachi.jpg?w=600&h=400&s=1" }}
+                  style={styles.restaurantImage}
+                />
+                <View style={styles.restaurantImageOverlay}>
+                  <Text style={styles.restaurantName}>Sushi Express</Text>
+                  <Text style={styles.restaurantCuisine}>
+                    Sushi, Bento, Ramen
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.restaurantInfo}>
+                <View style={styles.restaurantTags}>
+                  <View style={styles.tag}>
+                    <Text style={styles.tagText}>Group order: 3+ people</Text>
+                  </View>
+                  <Text style={styles.orderTime}>Order by 11:00 AM</Text>
+                </View>
+                <Text style={styles.restaurantDescription}>
+                  Fresh sushi and Japanese favorites delivered to your office.
                 </Text>
               </View>
-            </View>
-            <View style={styles.restaurantInfo}>
-              <View style={styles.restaurantTags}>
-                <View style={styles.tag}>
-                  <Text style={styles.tagText}>Group order: 3+ people</Text>
-                </View>
-                <Text style={styles.orderTime}>Order by 11:00 AM</Text>
-              </View>
-              <Text style={styles.restaurantDescription}>
-                Fresh sushi and Japanese favorites delivered to your office.
-              </Text>
-            </View>
+            </Link>
           </TouchableOpacity>
         </View>
 
@@ -129,7 +139,7 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <View style={styles.section}>
+        <View style={[styles.section, { paddingBottom: tabBarHeight }]}>
           <Text style={styles.sectionTitle}>Quick Actions</Text>
           <View style={styles.quickActions}>
             <TouchableOpacity style={styles.actionButton}>
@@ -169,30 +179,27 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  cartButton: {
+  cartIconContainer: {
     position: "relative",
     width: 40,
     height: 40,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "#e5e5e5",
     alignItems: "center",
     justifyContent: "center",
   },
   cartBadge: {
     position: "absolute",
-    top: -5,
-    right: -5,
-    width: 20,
-    height: 20,
+    top: 3,
+    right: 3,
+    width: 15,
+    height: 15,
     borderRadius: 10,
-    backgroundColor: "#10b981",
+    backgroundColor: "#f06428",
     alignItems: "center",
     justifyContent: "center",
   },
   cartBadgeText: {
     color: "#fff",
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: "bold",
   },
   scrollView: {
@@ -222,10 +229,11 @@ const styles = StyleSheet.create({
   restaurantImageContainer: {
     position: "relative",
     height: 160,
+    width: "100%"
   },
   restaurantImage: {
     width: "100%",
-    height: "100%",
+    height: "100%"
   },
   restaurantImageOverlay: {
     position: "absolute",
@@ -255,13 +263,13 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   tag: {
-    backgroundColor: "#d1fae5",
+    backgroundColor: "#f06428",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 16,
   },
   tagText: {
-    color: "#065f46",
+    color: "#fff",
     fontSize: 12,
     fontWeight: "500",
   },
@@ -300,7 +308,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   joinButton: {
-    backgroundColor: "#10b981",
+    backgroundColor: "#f06428",
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 8,
@@ -327,13 +335,14 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 12,
-    backgroundColor: "#a7f3d0",
+    backgroundColor: "#f06428",
     alignItems: "center",
     justifyContent: "center",
   },
   memberInitials: {
     fontSize: 12,
     fontWeight: "500",
+    color: "#fff",
   },
   memberName: {
     fontSize: 14,
@@ -344,7 +353,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     flex: 1,
-    backgroundColor: "#10b981",
+    backgroundColor: "#f06428",
     borderRadius: 8,
     padding: 16,
     alignItems: "center",
