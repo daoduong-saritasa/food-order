@@ -3,18 +3,18 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 import { Link } from "expo-router";
 import {
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 export default function HomeScreen() {
-    const tabBarHeight = useBottomTabBarHeight();
-  
+  const tabBarHeight = useBottomTabBarHeight();
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -41,7 +41,9 @@ export default function HomeScreen() {
             <Link href={`/restaurants/1`}>
               <View style={styles.restaurantImageContainer}>
                 <Image
-                  source={{ uri: "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg" }}
+                  source={{
+                    uri: "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg",
+                  }}
                   style={styles.restaurantImage}
                 />
                 <View style={styles.restaurantImageOverlay}>
@@ -70,7 +72,9 @@ export default function HomeScreen() {
             <Link href={`/restaurants/2`}>
               <View style={styles.restaurantImageContainer}>
                 <Image
-                  source={{ uri: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/26/58/b1/sushi-hokkaido-sachi.jpg?w=600&h=400&s=1" }}
+                  source={{
+                    uri: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/26/58/b1/sushi-hokkaido-sachi.jpg?w=600&h=400&s=1",
+                  }}
                   style={styles.restaurantImage}
                 />
                 <View style={styles.restaurantImageOverlay}>
@@ -229,11 +233,11 @@ const styles = StyleSheet.create({
   restaurantImageContainer: {
     position: "relative",
     height: 160,
-    width: "100%"
+    width: "100%",
   },
   restaurantImage: {
     width: "100%",
-    height: "100%"
+    height: "100%",
   },
   restaurantImageOverlay: {
     position: "absolute",
