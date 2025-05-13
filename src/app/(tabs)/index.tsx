@@ -1,15 +1,15 @@
-import { IconSymbol } from "@/components/ui/IconSymbol";
+import { IconSymbol } from "@//components/ui/IconSymbol";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 import { Link } from "expo-router";
 import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Image,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 export default function HomeScreen() {

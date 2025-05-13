@@ -1,6 +1,6 @@
 "use client"
 
-import { IconSymbol } from "@/components/ui/IconSymbol"
+import { IconSymbol } from "@//components/ui/IconSymbol"
 import { useRoute } from "@react-navigation/native"
 import { Link } from "expo-router"
 import { useState } from "react"
