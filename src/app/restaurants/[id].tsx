@@ -1,11 +1,11 @@
-"use client";
-
 import { IconSymbol } from "@//components/ui/IconSymbol";
+import { getRestaurant, Restaurant } from "@/api/mockRestaurant";
 import { ComponentWithHead } from "@/components/ComponentWithHead";
 import { useRoute } from "@react-navigation/native";
 import { Link } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Image,
   SafeAreaView,
   ScrollView,
@@ -14,176 +14,31 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function RestaurantScreen() {
   const route = useRoute<any>();
   const { id } = route.params as { id: string };
   const [activeTab, setActiveTab] = useState("popular");
+  const [isLoading, setIsLoading] = useState(true);
 
-  // --- REUSABLE RESTAURANT DATA ---
-  const RESTAURANTS = {
-    "1": {
-      id: "1",
-      name: "Italian Delights",
-      image:
-        "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg",
-      categories: ["Pasta", "Pizza", "Salads"],
-      orderDeadline: "11:30 AM",
-      groupOrderMinimum: 5,
-      menu: {
-        popular: [
-          {
-            id: "p1",
-            name: "Margherita Pizza",
-            description: "Classic tomato sauce, mozzarella, and basil",
-            price: 12.99,
-            image:
-              "https://uk.ooni.com/cdn/shop/articles/20220211142645-margherita-9920_e41233d5-dcec-461c-b07e-03245f031dfe.jpg?v=1737105431&width=1080",
-          },
-          {
-            id: "p2",
-            name: "Spaghetti Carbonara",
-            description: "Creamy sauce with pancetta and parmesan",
-            price: 14.99,
-            image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu2H7hGm-cJD6WZB_yFyU6lBXTV-HMabJ4cw&s",
-          },
-          {
-            id: "p3",
-            name: "Caesar Salad",
-            description:
-              "Romaine lettuce, croutons, parmesan, and Caesar dressing",
-            price: 9.99,
-            image:
-              "https://cdn.loveandlemons.com/wp-content/uploads/2024/12/caesar-salad.jpg",
-          },
-        ],
-        pasta: [
-          {
-            id: "pa1",
-            name: "Spaghetti Bolognese",
-            description: "Rich meat sauce with tomatoes and herbs",
-            price: 13.99,
-            image:
-              "https://images.ctfassets.net/uexfe9h31g3m/6QtnhruEFi8qgEyYAICkyS/ab01e9b1da656f35dd1a721c810162a0/Spaghetti_bolognese_4x3_V2_LOW_RES.jpg?q=90&w=1200&h=600",
-          },
-          {
-            id: "pa2",
-            name: "Fettuccine Alfredo",
-            description: "Creamy parmesan sauce",
-            price: 12.99,
-            image:
-              "https://cookingwithcassandra.com/wp-content/uploads/2022/10/Copy-of-Copy-of-DSC03750-2-scaled.jpg",
-          },
-          {
-            id: "pa3",
-            name: "Lasagna",
-            description: "Layered pasta with meat sauce and cheese",
-            price: 15.99,
-            image:
-              "https://cafedelites.com/wp-content/uploads/2018/01/Mamas-Best-Lasagna-IMAGE-43.jpg",
-          },
-        ],
-        pizza: [
-          {
-            id: "pi1",
-            name: "Pepperoni Pizza",
-            description: "Tomato sauce, mozzarella, and pepperoni",
-            price: 13.99,
-            image:
-              "https://www.simplyrecipes.com/thmb/I4razizFmeF8ua2jwuD0Pq4XpP8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-4-82c60893fcad4ade906a8a9f59b8da9d.jpg",
-          },
-          {
-            id: "pi2",
-            name: "Vegetarian Pizza",
-            description: "Tomato sauce, mozzarella, and assorted vegetables",
-            price: 14.99,
-            image:
-              "https://cdn.loveandlemons.com/wp-content/uploads/2023/02/vegetarian-pizza.jpg",
-          },
-          {
-            id: "pi3",
-            name: "Hawaiian Pizza",
-            description: "Tomato sauce, mozzarella, ham, and pineapple",
-            price: 14.99,
-            image:
-              "https://dinnerthendessert.com/wp-content/uploads/2023/06/Hawaiian-Pizza-7.jpg",
-          },
-        ],
-      },
-    },
-    "2": {
-      id: "2",
-      name: "Sushi Express",
-      image:
-        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/26/58/b1/sushi-hokkaido-sachi.jpg?w=600&h=400&s=1",
-      categories: ["Sushi", "Bento", "Ramen"],
-      orderDeadline: "11:00 AM",
-      groupOrderMinimum: 3,
-      menu: {
-        popular: [
-          {
-            id: "s1",
-            name: "Salmon Nigiri",
-            description: "Fresh salmon over seasoned rice",
-            price: 8.99,
-            image:
-              "https://www.justonecookbook.com/wp-content/uploads/2022/01/Salmon-Nigiri-6129-I.jpg",
-          },
-          {
-            id: "s2",
-            name: "Tuna Roll",
-            description: "Tuna, rice, and seaweed",
-            price: 7.99,
-            image:
-              "https://www.thespruceeats.com/thmb/7NQXyV2p5ZQv4f6F3s0hQG4L5dA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/tuna-maki-sushi-2031461-hero-01-3e8e1e8b4b0e4d2fa7e4b5f6c0b4b4b8.jpg",
-          },
-          {
-            id: "s3",
-            name: "Chicken Katsu Bento",
-            description: "Breaded chicken, rice, salad, and pickles",
-            price: 12.99,
-            image:
-              "https://www.justonecookbook.com/wp-content/uploads/2021/06/Chicken-Katsu-3261-I.jpg",
-          },
-        ],
-        sushi: [
-          {
-            id: "su1",
-            name: "Eel Avocado Roll",
-            description: "Grilled eel, avocado, rice, and seaweed",
-            price: 11.99,
-            image:
-              "https://www.thespruceeats.com/thmb/8g6Xv5D8XQw2qzG6eVw4F6nJQZk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/eel-avocado-roll-2031457-hero-01-5b6a2a0b46e04e7a8e5b6e2e6c0a0f2a.jpg",
-          },
-          {
-            id: "su2",
-            name: "California Roll",
-            description: "Imitation crab, avocado, cucumber, rice, and seaweed",
-            price: 9.99,
-            image:
-              "https://www.thespruceeats.com/thmb/3pQ8jFQe1Kk6xkXw4f5G8hQZk8k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/california-roll-recipe-2031458-hero-01-5b6a2a0b46e04e7a8e5b6e2e6c0a0f2a.jpg",
-          },
-        ],
-        ramen: [
-          {
-            id: "r1",
-            name: "Shoyu Ramen",
-            description: "Soy sauce-based broth with noodles, pork, and egg",
-            price: 13.99,
-            image:
-              "https://www.justonecookbook.com/wp-content/uploads/2021/06/Shoyu-Ramen-3261-I.jpg",
-          },
-        ],
-      },
-    },
-  };
-  // --- END REUSABLE RESTAURANT DATA ---
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
 
-  const restaurant = RESTAURANTS[id as keyof typeof RESTAURANTS];
+  useEffect(() => {
+    const loadRestaurant = async () => {
+      setIsLoading(true);
+      const restaurant = await getRestaurant(Number(id));
+      setRestaurant(restaurant ?? null);
+      setIsLoading(false);
+    };
+    loadRestaurant();
+  }, [id]);
 
   const renderMenuItems = (category: string) => {
-    return restaurant.menu[category as keyof typeof restaurant.menu].map(
+    if (!restaurant) {
+      return null;
+    }
+    return restaurant.menu[category as keyof typeof restaurant.menu]?.map(
       (item: {
         id: string;
         name: string;
@@ -207,6 +62,20 @@ export default function RestaurantScreen() {
       )
     );
   };
+
+  if (isLoading) {
+    return (
+      <SafeAreaProvider>
+        <SafeAreaView style={[styles.loadingContainer]}>
+          <ActivityIndicator size="large" />
+        </SafeAreaView>
+      </SafeAreaProvider>
+    );
+  }
+
+  if (!restaurant) {
+    return null;
+  }
 
   return (
     <ComponentWithHead title={restaurant.name}>
@@ -326,6 +195,11 @@ export default function RestaurantScreen() {
 }
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
