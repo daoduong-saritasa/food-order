@@ -1,0 +1,3 @@
+autolinks:
+  - key_prefix: SVNW
+    url_template: https://saritasa.atlassian.net/browse/SVNW-<num>
