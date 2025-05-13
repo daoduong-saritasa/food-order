@@ -1,7 +1,8 @@
 import { IconSymbol } from "@//components/ui/IconSymbol";
+import { getRestaurants, Restaurant } from "@/api/mockRestaurant";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-
 import { Link } from "expo-router";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -14,6 +15,14 @@ import {
 
 export default function HomeScreen() {
   const tabBarHeight = useBottomTabBarHeight();
+
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+
+  useEffect(() => {
+    getRestaurants().then((restaurants) => {
+      setRestaurants(restaurants);
+    });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,67 +45,47 @@ export default function HomeScreen() {
       <ScrollView style={styles.scrollView}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Today Restaurants</Text>
-
-          <TouchableOpacity style={styles.restaurantCard}>
-            <Link href={`/restaurants/1`}>
-              <View style={styles.restaurantImageContainer}>
-                <Image
-                  source={{
-                    uri: "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg",
-                  }}
-                  style={styles.restaurantImage}
-                />
-                <View style={styles.restaurantImageOverlay}>
-                  <Text style={styles.restaurantName}>Italian Delights</Text>
-                  <Text style={styles.restaurantCuisine}>
-                    Pasta, Pizza, Salads
+          {restaurants.map((restaurant) => (
+            <TouchableOpacity
+              key={restaurant.id}
+              style={styles.restaurantCard}
+            >
+              <Link href={`/restaurants/${restaurant.id}`}>
+                <View style={styles.restaurantImageContainer}>
+                  <Image
+                    source={{ uri: restaurant.image }}
+                    style={styles.restaurantImage}
+                  />
+                  <View style={styles.restaurantImageOverlay}>
+                    <Text style={styles.restaurantName}>{restaurant.name}</Text>
+                    <Text style={styles.restaurantCuisine}>
+                      {restaurant.categories.join(", ")}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.restaurantInfo}>
+                  <View style={styles.restaurantTags}>
+                    <View style={styles.tag}>
+                      <Text style={styles.tagText}>
+                        Group order: {restaurant.groupOrderMinimum}+ people
+                      </Text>
+                    </View>
+                    <Text style={styles.orderTime}>
+                      Order by {restaurant.orderDeadline}
+                    </Text>
+                  </View>
+                  <Text style={styles.restaurantDescription}>
+                    {/* Placeholder description */}
+                    {restaurant.name === "Italian Delights"
+                      ? "Authentic Italian cuisine with fresh ingredients and homemade pasta."
+                      : restaurant.name === "Sushi Express"
+                      ? "Fresh sushi and Japanese favorites delivered to your office."
+                      : "Delicious food from " + restaurant.name}
                   </Text>
                 </View>
-              </View>
-              <View style={styles.restaurantInfo}>
-                <View style={styles.restaurantTags}>
-                  <View style={styles.tag}>
-                    <Text style={styles.tagText}>Group order: 5+ people</Text>
-                  </View>
-                  <Text style={styles.orderTime}>Order by 11:30 AM</Text>
-                </View>
-                <Text style={styles.restaurantDescription}>
-                  Authentic Italian cuisine with fresh ingredients and homemade
-                  pasta.
-                </Text>
-              </View>
-            </Link>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.restaurantCard}>
-            <Link href={`/restaurants/2`}>
-              <View style={styles.restaurantImageContainer}>
-                <Image
-                  source={{
-                    uri: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/26/58/b1/sushi-hokkaido-sachi.jpg?w=600&h=400&s=1",
-                  }}
-                  style={styles.restaurantImage}
-                />
-                <View style={styles.restaurantImageOverlay}>
-                  <Text style={styles.restaurantName}>Sushi Express</Text>
-                  <Text style={styles.restaurantCuisine}>
-                    Sushi, Bento, Ramen
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.restaurantInfo}>
-                <View style={styles.restaurantTags}>
-                  <View style={styles.tag}>
-                    <Text style={styles.tagText}>Group order: 3+ people</Text>
-                  </View>
-                  <Text style={styles.orderTime}>Order by 11:00 AM</Text>
-                </View>
-                <Text style={styles.restaurantDescription}>
-                  Fresh sushi and Japanese favorites delivered to your office.
-                </Text>
-              </View>
-            </Link>
-          </TouchableOpacity>
+              </Link>
+            </TouchableOpacity>
+          ))}
         </View>
 
         <View style={styles.section}>

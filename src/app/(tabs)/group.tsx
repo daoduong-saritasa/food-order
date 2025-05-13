@@ -1,8 +1,9 @@
 "use client"
 
+import { ActiveGroup, getActiveGroups, getPastGroups, PastGroup } from "@/api/mockGroups"
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs"
 import { Link } from "expo-router"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 
 export default function GroupsScreen() {
@@ -10,139 +11,13 @@ export default function GroupsScreen() {
 
   const tabBarHeight = useBottomTabBarHeight();
 
-  // This would normally be fetched from an API
-  const activeGroups = [
-    {
-      id: "g1",
-      name: "Engineering Team Lunch",
-      restaurant: "Italian Delights",
-      deadline: "11:30 AM",
-      timeRemaining: "25 min",
-      members: 5,
-      status: "active",
-    },
-    {
-      id: "g2",
-      name: "Marketing Team Lunch",
-      restaurant: "Sushi Express",
-      deadline: "11:00 AM",
-      timeRemaining: "5 min",
-      members: 3,
-      status: "active",
-    },
-    {
-      id: "g2",
-      name: "Marketing Team Lunch",
-      restaurant: "Sushi Express",
-      deadline: "11:00 AM",
-      timeRemaining: "5 min",
-      members: 3,
-      status: "active",
-    },
-    {
-      id: "g2",
-      name: "Marketing Team Lunch",
-      restaurant: "Sushi Express",
-      deadline: "11:00 AM",
-      timeRemaining: "5 min",
-      members: 3,
-      status: "active",
-    },
-    {
-      id: "g2",
-      name: "Marketing Team Lunch",
-      restaurant: "Sushi Express",
-      deadline: "11:00 AM",
-      timeRemaining: "5 min",
-      members: 3,
-      status: "active",
-    },
-    {
-      id: "g2",
-      name: "Marketing Team Lunch",
-      restaurant: "Sushi Express",
-      deadline: "11:00 AM",
-      timeRemaining: "5 min",
-      members: 3,
-      status: "active",
-    },
-    {
-      id: "g2",
-      name: "Marketing Team Lunch",
-      restaurant: "Sushi Express",
-      deadline: "11:00 AM",
-      timeRemaining: "5 min",
-      members: 3,
-      status: "active",
-    },
-  ]
+  const [activeGroups, setActiveGroups] = useState<ActiveGroup[]>([]);
+  const [pastGroups, setPastGroups] = useState<PastGroup[]>([]);
 
-  const pastGroups = [
-    {
-      id: "g3",
-      name: "Engineering Team Lunch",
-      restaurant: "Burger Joint",
-      date: "Yesterday",
-      members: 6,
-      status: "completed",
-    },
-    {
-      id: "g4",
-      name: "Company Lunch",
-      restaurant: "Taco Tuesday",
-      date: "May 10, 2023",
-      members: 12,
-      status: "completed",
-    },
-    {
-      id: "g3",
-      name: "Engineering Team Lunch",
-      restaurant: "Burger Joint",
-      date: "Yesterday",
-      members: 6,
-      status: "completed",
-    },
-    {
-      id: "g4",
-      name: "Company Lunch",
-      restaurant: "Taco Tuesday",
-      date: "May 10, 2023",
-      members: 12,
-      status: "completed",
-    },
-    {
-      id: "g3",
-      name: "Engineering Team Lunch",
-      restaurant: "Burger Joint",
-      date: "Yesterday",
-      members: 6,
-      status: "completed",
-    },
-    {
-      id: "g4",
-      name: "Company Lunch",
-      restaurant: "Taco Tuesday",
-      date: "May 10, 2023",
-      members: 12,
-      status: "completed",
-    },
-    {
-      id: "g3",
-      name: "Engineering Team Lunch",
-      restaurant: "Burger Joint",
-      date: "Yesterday",
-      members: 6,
-      status: "completed",
-    },
-    {
-      id: "g4",
-      name: "Company Lunch",
-      restaurant: "Taco Tuesday",
-      date: "May 10, 2023",
-      members: 12,
-      status: "completed",
-    },
-  ]
+  useEffect(() => {
+    setActiveGroups(getActiveGroups(7));
+    setPastGroups(getPastGroups(8));
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

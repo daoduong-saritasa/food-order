@@ -56,3 +56,11 @@ export const getRestaurant = (id: number): Promise<Restaurant | undefined> => {
     }, 2000);
   });
 };
+
+export const getRestaurants = (): Promise<Restaurant[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(RESTAURANTS);
+    }, 2000);
+  });
+};

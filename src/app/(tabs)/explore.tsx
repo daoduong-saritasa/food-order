@@ -1,4 +1,7 @@
+import { getRecentOrders, RecentOrder } from "@/api/mockRecentOrders";
+import { Restaurant, RESTAURANTS } from "@/api/mockRestaurant";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -11,6 +14,12 @@ import {
 } from "react-native";
 
 export default function ExploreScreen() {
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([]);
+  useEffect(() => {
+    setRestaurants(RESTAURANTS);
+    setRecentOrders(getRecentOrders());
+  }, []);
   const tabBarHeight = useBottomTabBarHeight();
 
   return (
@@ -67,14 +76,12 @@ export default function ExploreScreen() {
         <View>
           <Text style={styles.sectionTitle}>Popular Restaurants</Text>
           <View style={styles.restaurantGrid}>
-            {[1, 2, 3, 4].map((id) => (
-              <TouchableOpacity key={id} style={styles.restaurantGridItem}>
+            {restaurants.map((restaurant) => (
+              <TouchableOpacity key={restaurant.id} style={styles.restaurantGridItem}>
                 <View style={styles.restaurantImageContainer}>
                   <View style={styles.restaurantImage}>
                     <Image
-                      source={{
-                        uri: "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg",
-                      }}
+                      source={{ uri: restaurant.image }}
                       style={styles.restaurantImage}
                     />
                   </View>
@@ -82,24 +89,8 @@ export default function ExploreScreen() {
                     <Text style={styles.ratingText}>4.8</Text>
                   </View>
                 </View>
-                <Text style={styles.restaurantName}>
-                  {id === 1
-                    ? "Italian Delights"
-                    : id === 2
-                    ? "Sushi Express"
-                    : id === 3
-                    ? "Burger Joint"
-                    : "Taco Tuesday"}
-                </Text>
-                <Text style={styles.restaurantCuisine}>
-                  {id === 1
-                    ? "Italian"
-                    : id === 2
-                    ? "Japanese"
-                    : id === 3
-                    ? "American"
-                    : "Mexican"}
-                </Text>
+                <Text style={styles.restaurantName}>{restaurant.name}</Text>
+                <Text style={styles.restaurantCuisine}>{restaurant.categories[0]}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -108,26 +99,18 @@ export default function ExploreScreen() {
         <View style={{ paddingBottom: tabBarHeight }}>
           <Text style={styles.sectionTitle}>Recent Orders</Text>
           <View style={styles.recentOrdersList}>
-            {[1, 2].map((id) => (
-              <TouchableOpacity key={id} style={styles.recentOrderItem}>
+            {recentOrders.map((order) => (
+              <TouchableOpacity key={order.id} style={styles.recentOrderItem}>
                 <View style={styles.recentOrderImage}>
                   <Image
-                    source={{
-                      uri: "https://images.squarespace-cdn.com/content/v1/62fe6e3c0caa6b5fa067b8e3/b68add82-87b7-451e-935d-30db793312d4/PIA_151_La_Jolla_Restaurant_Remodel28891.jpg",
-                    }}
+                    source={{ uri: order.image }}
                     style={styles.recentOrderImage}
                   />
                 </View>
                 <View style={styles.recentOrderContent}>
-                  <Text style={styles.recentOrderName}>
-                    {id === 1 ? "Margherita Pizza" : "Spaghetti Carbonara"}
-                  </Text>
-                  <Text style={styles.recentOrderRestaurant}>
-                    Italian Delights
-                  </Text>
-                  <Text style={styles.recentOrderDate}>
-                    Ordered on May 10, 2023
-                  </Text>
+                  <Text style={styles.recentOrderName}>{order.name}</Text>
+                  <Text style={styles.recentOrderRestaurant}>{order.restaurant}</Text>
+                  <Text style={styles.recentOrderDate}>{order.date}</Text>
                 </View>
                 <TouchableOpacity style={styles.reorderButton}>
                   <Text style={styles.reorderButtonText}>Reorder</Text>
