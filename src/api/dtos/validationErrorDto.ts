@@ -1,5 +1,5 @@
 // See appError.ts to find out why this rule is disabled.
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 // TODO (template preparation): Check and update ValidationErrorDto and ApiErrorDto according to API specs.
 
 /**
@@ -19,7 +19,7 @@ export type ValidationErrorDto<T extends Record<string, any>> = {
 } & {
 
   /** Non field errors. */
-  // eslint-disable-next-line no-restricted-syntax
+   
   readonly non_field_errors?: string[];
 };
 

@@ -1,7 +1,7 @@
 // In some cases we have to use Record<string, any> to narrow generic type.
 // It's not possible to use 'unknown' because Record<string, unknown> doesn't work with interfaces and classes.
 // That's why we have to use 'any' instead.
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 
 /**
  * Entity validation errors type.

@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 
-import { CartItem, getCartItems } from "@/api/services/mockCart";
+import { type CartItem, getCartItems } from "@/api/services/mockCart";
 
 export default function CartScreen() {
   const tabBarHeight = useBottomTabBarHeight();
@@ -76,21 +76,28 @@ export default function CartScreen() {
 
         <Text style={styles.sectionTitle}>Your Items</Text>
 
-        {cartItems.map((item) => (
+        {cartItems.map(item => (
           <View key={item.id} style={styles.cartItem}>
             <Image source={{ uri: item.image }} style={styles.cartItemImage} />
             <View style={styles.cartItemContent}>
-              <Text style={styles.cartItemName}>{item.name}</Text>
-              <Text style={styles.cartItemRestaurant}>{item.restaurant}</Text>
+              <Text style={styles.cartItemName}>
+                {item.name}
+              </Text>
+              <Text style={styles.cartItemRestaurant}>
+                {item.restaurant}
+              </Text>
               <View style={styles.cartItemFooter}>
                 <Text style={styles.cartItemPrice}>
-                  ${(item.price * item.quantity).toFixed(2)}
+                  $
+                  {(item.price * item.quantity).toFixed(2)}
                 </Text>
                 <View style={styles.quantityControls}>
                   <TouchableOpacity style={styles.quantityButton}>
                     <Text style={styles.quantityText}>-</Text>
                   </TouchableOpacity>
-                  <Text style={styles.quantityText}>{item.quantity}</Text>
+                  <Text style={styles.quantityText}>
+                    {item.quantity}
+                  </Text>
                   <TouchableOpacity style={styles.quantityButton}>
                     <Text style={styles.quantityText}>+</Text>
                   </TouchableOpacity>
@@ -109,16 +116,25 @@ export default function CartScreen() {
           <Text style={styles.summaryTitle}>Order Summary</Text>
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Subtotal</Text>
-            <Text style={styles.summaryValue}>${subtotal.toFixed(2)}</Text>
+            <Text style={styles.summaryValue}>
+              $
+              {subtotal.toFixed(2)}
+            </Text>
           </View>
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Delivery Fee</Text>
-            <Text style={styles.summaryValue}>${deliveryFee.toFixed(2)}</Text>
+            <Text style={styles.summaryValue}>
+              $
+              {deliveryFee.toFixed(2)}
+            </Text>
           </View>
           <View style={styles.divider} />
           <View style={styles.summaryRow}>
             <Text style={styles.totalLabel}>Total</Text>
-            <Text style={styles.totalValue}>${total.toFixed(2)}</Text>
+            <Text style={styles.totalValue}>
+              $
+              {total.toFixed(2)}
+            </Text>
           </View>
         </View>
 
@@ -136,7 +152,8 @@ export default function CartScreen() {
       <View style={[styles.footer, { bottom: tabBarHeight }]}>
         <TouchableOpacity style={styles.checkoutButton}>
           <Text style={styles.checkoutButtonText}>
-            Place Order • ${total.toFixed(2)}
+            Place Order • $
+            {total.toFixed(2)}
           </Text>
         </TouchableOpacity>
       </View>

@@ -1,6 +1,4 @@
-"use client"
-
-import { ActiveGroup, getActiveGroups, getPastGroups, PastGroup } from "@/api/services/mockGroups"
+import { type ActiveGroup, getActiveGroups, getPastGroups, type PastGroup } from "@/api/services/mockGroups"
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs"
 import { Link } from "expo-router"
 import React, { useEffect, useState } from "react"
@@ -54,17 +52,28 @@ export default function GroupsScreen() {
                 style={styles.groupCard}
               >
                 <View style={styles.groupCardHeader}>
-                  <Text style={styles.groupName}>{group.name}</Text>
+                  <Text style={styles.groupName}>
+                    {group.name}
+                  </Text>
                   <View style={styles.statusTag}>
                     <Text style={styles.statusTagText}>Active</Text>
                   </View>
                 </View>
-                <Text style={styles.restaurantName}>{group.restaurant}</Text>
+                <Text style={styles.restaurantName}>
+                  {group.restaurant}
+                </Text>
                 <View style={styles.groupCardFooter}>
                   <View style={styles.membersInfo}>
-                    <Text style={styles.membersText}>{group.members} members</Text>
+                    <Text style={styles.membersText}>
+                      {group.members}
+                      {' '}
+                      members
+                    </Text>
                   </View>
-                  <Text style={styles.timeRemaining}>Closes in {group.timeRemaining}</Text>
+                  <Text style={styles.timeRemaining}>
+                    Closes in
+                    {group.timeRemaining}
+                  </Text>
                 </View>
               </TouchableOpacity>
             ))}
@@ -80,17 +89,27 @@ export default function GroupsScreen() {
                 style={styles.groupCard}
               >
                 <View style={styles.groupCardHeader}>
-                  <Text style={styles.groupName}>{group.name}</Text>
+                  <Text style={styles.groupName}>
+                    {group.name}
+                  </Text>
                   <View style={[styles.statusTag, styles.completedTag]}>
                     <Text style={styles.completedTagText}>Completed</Text>
                   </View>
                 </View>
-                <Text style={styles.restaurantName}>{group.restaurant}</Text>
+                <Text style={styles.restaurantName}>
+                  {group.restaurant}
+                </Text>
                 <View style={styles.groupCardFooter}>
                   <View style={styles.membersInfo}>
-                    <Text style={styles.membersText}>{group.members} members</Text>
+                    <Text style={styles.membersText}>
+                      {group.members}
+                      {' '}
+                      members
+                    </Text>
                   </View>
-                  <Text style={styles.dateText}>{group.date}</Text>
+                  <Text style={styles.dateText}>
+                    {group.date}
+                  </Text>
                 </View>
               </TouchableOpacity>
             ))}

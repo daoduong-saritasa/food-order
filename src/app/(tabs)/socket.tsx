@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+
 import { useSocket } from "../../hooks/useSocket";
 
 export default function SocketScreen() {
@@ -16,7 +17,7 @@ export default function SocketScreen() {
       setIsConnected(true);
       setTransport(socket.io.engine.transport.name);
 
-      socket.io.engine.on("upgrade", (transport) => {
+      socket.io.engine.on("upgrade", transport => {
         setTransport(transport.name);
       });
     }
@@ -37,8 +38,14 @@ export default function SocketScreen() {
 
   return (
     <View style={styles.container}>
-      <Text>Status: {isConnected ? "connected" : "disconnected"}</Text>
-      <Text>Transport: {transport}</Text>
+      <Text>
+        Status:
+        {isConnected ? "connected" : "disconnected"}
+      </Text>
+      <Text>
+        Transport:
+        {transport}
+      </Text>
     </View>
   );
 }

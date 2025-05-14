@@ -1,5 +1,5 @@
-import { GeneralApiError } from "@/api/dtos/apiErrorDto";
-import { ApiErrorDto } from "@/api/dtos/validationErrorDto";
+import { type GeneralApiError } from "@/api/dtos/apiErrorDto";
+import { type ApiErrorDto } from "@/api/dtos/validationErrorDto";
 
 /**
  * Type guard for AxiosError.

@@ -7,7 +7,6 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-
 import "../../global.css";
 
 export default function RootLayout() {

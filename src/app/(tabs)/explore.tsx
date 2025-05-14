@@ -1,5 +1,5 @@
-import { getRecentOrders, RecentOrder } from "@/api/services/mockRecentOrders";
-import { Restaurant, RESTAURANTS } from "@/api/services/mockRestaurant";
+import { getRecentOrders, type RecentOrder } from "@/api/services/mockRecentOrders";
+import { type Restaurant, RESTAURANTS } from "@/api/services/mockRestaurant";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import React, { useEffect, useState } from "react";
 import {
@@ -76,7 +76,7 @@ export default function ExploreScreen() {
         <View>
           <Text style={styles.sectionTitle}>Popular Restaurants</Text>
           <View style={styles.restaurantGrid}>
-            {restaurants.map((restaurant) => (
+            {restaurants.map(restaurant => (
               <TouchableOpacity key={restaurant.id} style={styles.restaurantGridItem}>
                 <View style={styles.restaurantImageContainer}>
                   <View style={styles.restaurantImage}>
@@ -89,8 +89,12 @@ export default function ExploreScreen() {
                     <Text style={styles.ratingText}>4.8</Text>
                   </View>
                 </View>
-                <Text style={styles.restaurantName}>{restaurant.name}</Text>
-                <Text style={styles.restaurantCuisine}>{restaurant.categories[0]}</Text>
+                <Text style={styles.restaurantName}>
+                  {restaurant.name}
+                </Text>
+                <Text style={styles.restaurantCuisine}>
+                  {restaurant.categories[0]}
+                </Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -99,7 +103,7 @@ export default function ExploreScreen() {
         <View style={{ paddingBottom: tabBarHeight }}>
           <Text style={styles.sectionTitle}>Recent Orders</Text>
           <View style={styles.recentOrdersList}>
-            {recentOrders.map((order) => (
+            {recentOrders.map(order => (
               <TouchableOpacity key={order.id} style={styles.recentOrderItem}>
                 <View style={styles.recentOrderImage}>
                   <Image
@@ -108,9 +112,15 @@ export default function ExploreScreen() {
                   />
                 </View>
                 <View style={styles.recentOrderContent}>
-                  <Text style={styles.recentOrderName}>{order.name}</Text>
-                  <Text style={styles.recentOrderRestaurant}>{order.restaurant}</Text>
-                  <Text style={styles.recentOrderDate}>{order.date}</Text>
+                  <Text style={styles.recentOrderName}>
+                    {order.name}
+                  </Text>
+                  <Text style={styles.recentOrderRestaurant}>
+                    {order.restaurant}
+                  </Text>
+                  <Text style={styles.recentOrderDate}>
+                    {order.date}
+                  </Text>
                 </View>
                 <TouchableOpacity style={styles.reorderButton}>
                   <Text style={styles.reorderButtonText}>Reorder</Text>

@@ -1,4 +1,4 @@
-import { Dish, ITALIAN_POPULAR, JAPANESE_POPULAR, PASTA, PIZZA, RAMEN, SALADS, SUSHI } from "./mockDishes";
+import { type Dish, ITALIAN_POPULAR, JAPANESE_POPULAR, PASTA, PIZZA, RAMEN, SALADS, SUSHI } from "./mockDishes";
 
 export type Restaurant = {
   id: number;
@@ -50,15 +50,15 @@ export const RESTAURANTS: Restaurant[] = [
 ]
 
 export const getRestaurant = (id: number): Promise<Restaurant | undefined> => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
-      resolve(RESTAURANTS.find((restaurant) => restaurant.id === id));
+      resolve(RESTAURANTS.find(restaurant => restaurant.id === id));
     }, 2000);
   });
 };
 
 export const getRestaurants = (): Promise<Restaurant[]> => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve(RESTAURANTS);
     }, 2000);

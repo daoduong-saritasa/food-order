@@ -1,5 +1,5 @@
 import { IconSymbol } from "@//components/ui/IconSymbol";
-import { getRestaurants, Restaurant } from "@/api/services/mockRestaurant";
+import { getRestaurants, type Restaurant } from "@/api/services/mockRestaurant";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ export default function HomeScreen() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
   useEffect(() => {
-    getRestaurants().then((restaurants) => {
+    getRestaurants().then(restaurants => {
       setRestaurants(restaurants);
     });
   }, []);
@@ -45,7 +45,7 @@ export default function HomeScreen() {
       <ScrollView style={styles.scrollView}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Today Restaurants</Text>
-          {restaurants.map((restaurant) => (
+          {restaurants.map(restaurant => (
             <TouchableOpacity
               key={restaurant.id}
               style={styles.restaurantCard}
@@ -57,7 +57,9 @@ export default function HomeScreen() {
                     style={styles.restaurantImage}
                   />
                   <View style={styles.restaurantImageOverlay}>
-                    <Text style={styles.restaurantName}>{restaurant.name}</Text>
+                    <Text style={styles.restaurantName}>
+                      {restaurant.name}
+                    </Text>
                     <Text style={styles.restaurantCuisine}>
                       {restaurant.categories.join(", ")}
                     </Text>
@@ -67,11 +69,16 @@ export default function HomeScreen() {
                   <View style={styles.restaurantTags}>
                     <View style={styles.tag}>
                       <Text style={styles.tagText}>
-                        Group order: {restaurant.groupOrderMinimum}+ people
+                        Group order: 
+                        {' '}
+                        {restaurant.groupOrderMinimum}
+                        + people
                       </Text>
                     </View>
                     <Text style={styles.orderTime}>
-                      Order by {restaurant.orderDeadline}
+                      Order by 
+                      {' '}
+                      {restaurant.orderDeadline}
                     </Text>
                   </View>
                   <Text style={styles.restaurantDescription}>

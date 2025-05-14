@@ -1,5 +1,5 @@
 import { IconSymbol } from "@//components/ui/IconSymbol";
-import { getRestaurant, Restaurant } from "@/api/services/mockRestaurant";
+import { getRestaurant, type Restaurant } from "@/api/services/mockRestaurant";
 import { ComponentWithHead } from "@/components/ComponentWithHead";
 import { useRoute } from "@react-navigation/native";
 import { Link } from "expo-router";
@@ -49,10 +49,17 @@ export default function RestaurantScreen() {
         <View key={item.id} style={styles.menuItem}>
           <Image source={{ uri: item.image }} style={styles.menuItemImage} />
           <View style={styles.menuItemContent}>
-            <Text style={styles.menuItemName}>{item.name}</Text>
-            <Text style={styles.menuItemDescription}>{item.description}</Text>
+            <Text style={styles.menuItemName}>
+              {item.name}
+            </Text>
+            <Text style={styles.menuItemDescription}>
+              {item.description}
+            </Text>
             <View style={styles.menuItemFooter}>
-              <Text style={styles.menuItemPrice}>${item.price.toFixed(2)}</Text>
+              <Text style={styles.menuItemPrice}>
+                $
+                {item.price.toFixed(2)}
+              </Text>
               <TouchableOpacity style={styles.addButton}>
                 <Text style={styles.addButtonText}>Add to Cart</Text>
               </TouchableOpacity>
@@ -107,7 +114,9 @@ export default function RestaurantScreen() {
               style={styles.heroImage}
             />
             <View style={styles.heroOverlay}>
-              <Text style={styles.restaurantName}>{restaurant.name}</Text>
+              <Text style={styles.restaurantName}>
+                {restaurant.name}
+              </Text>
               <Text style={styles.restaurantCuisine}>
                 {restaurant.categories.join(", ")}
               </Text>
@@ -117,12 +126,17 @@ export default function RestaurantScreen() {
           <View style={styles.infoBar}>
             <View style={styles.infoItem}>
               <Text style={styles.infoText}>
-                Order by {restaurant.orderDeadline}
+                Order by 
+                {' '}
+                {restaurant.orderDeadline}
               </Text>
             </View>
             <View style={styles.infoItem}>
               <Text style={styles.infoText}>
-                Group order: {restaurant.groupOrderMinimum}+ people
+                Group order: 
+                {' '}
+                {restaurant.groupOrderMinimum}
+                + people
               </Text>
             </View>
           </View>
