@@ -26,6 +26,10 @@ const TABS = {
     title: "Group",
     id: "group",
   },
+  socket: {
+    title: "Socket",
+    id: "socket",
+  },
 };
 
 export default function TabLayout() {
@@ -86,6 +90,15 @@ export default function TabLayout() {
           name={TABS.group.id}
           options={{
             title: TABS.group.title,
+            tabBarIcon: ({ color }) => (
+              <IconSymbol size={28} name="person.2.fill" color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name={TABS.socket.id}
+          options={{
+            title: TABS.socket.title,
             tabBarIcon: ({ color }) => (
               <IconSymbol size={28} name="person.2.fill" color={color} />
             ),
