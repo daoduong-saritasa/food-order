@@ -1,5 +1,5 @@
 import { IconSymbol } from "@//components/ui/IconSymbol";
-import { getRestaurants, Restaurant } from "@/api/mockRestaurant";
+import { getRestaurants, Restaurant } from "@/api/services/mockRestaurant";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";

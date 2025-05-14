@@ -1,5 +1,5 @@
-import { getRecentOrders, RecentOrder } from "@/api/mockRecentOrders";
-import { Restaurant, RESTAURANTS } from "@/api/mockRestaurant";
+import { getRecentOrders, RecentOrder } from "@/api/services/mockRecentOrders";
+import { Restaurant, RESTAURANTS } from "@/api/services/mockRestaurant";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import React, { useEffect, useState } from "react";
 import {

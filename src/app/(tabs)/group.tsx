@@ -1,6 +1,6 @@
 "use client"
 
-import { ActiveGroup, getActiveGroups, getPastGroups, PastGroup } from "@/api/mockGroups"
+import { ActiveGroup, getActiveGroups, getPastGroups, PastGroup } from "@/api/services/mockGroups"
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs"
 import { Link } from "expo-router"
 import React, { useEffect, useState } from "react"

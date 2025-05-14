@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 
-import { CartItem, getCartItems } from "@/api/mockCart";
+import { CartItem, getCartItems } from "@/api/services/mockCart";
 
 export default function CartScreen() {
   const tabBarHeight = useBottomTabBarHeight();

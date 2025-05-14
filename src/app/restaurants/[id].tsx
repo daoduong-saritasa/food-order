@@ -1,5 +1,5 @@
 import { IconSymbol } from "@//components/ui/IconSymbol";
-import { getRestaurant, Restaurant } from "@/api/mockRestaurant";
+import { getRestaurant, Restaurant } from "@/api/services/mockRestaurant";
 import { ComponentWithHead } from "@/components/ComponentWithHead";
 import { useRoute } from "@react-navigation/native";
 import { Link } from "expo-router";
