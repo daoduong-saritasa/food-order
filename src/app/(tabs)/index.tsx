@@ -28,7 +28,8 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Text style={styles.headerTitle}>LunchHub</Text>
+          <Text className="text-h3 text-primary">LunchHub</Text>
+          <Text className="text-h6 text-primary">Nativewind classes</Text>
         </View>
         <TouchableOpacity>
           <Link href="/cart">
@@ -171,13 +172,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   headerLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
+    flexDirection: "column",
+    paddingBottom: 8,
   },
   cartIconContainer: {
     position: "relative",
