@@ -96,16 +96,6 @@ export default function RestaurantScreen() {
               </View>
             </Link>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.cartButton}>
-            <Link href="/cart">
-              <View style={styles.cartIconContainer}>
-                <IconSymbol size={25} name="cart" color="#f06428" />
-                <View style={styles.cartBadge}>
-                  <Text style={styles.cartBadgeText}>3</Text>
-                </View>
-              </View>
-            </Link>
-          </TouchableOpacity>
         </SafeAreaView>
         <ScrollView style={styles.scrollView}>
           <View style={styles.heroContainer}>

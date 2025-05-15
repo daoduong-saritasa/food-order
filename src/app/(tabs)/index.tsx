@@ -1,9 +1,9 @@
-import { IconSymbol } from "@//components/ui/IconSymbol";
 import { getRestaurants, type Restaurant } from "@/api/services/mockRestaurant";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   Image,
   SafeAreaView,
   ScrollView,
@@ -17,11 +17,16 @@ export default function HomeScreen() {
   const tabBarHeight = useBottomTabBarHeight();
 
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getRestaurants().then(restaurants => {
+    const fetchRestaurants = async () => {
+      setIsLoading(true);
+      const restaurants = await getRestaurants();
       setRestaurants(restaurants);
-    });
+      setIsLoading(false);
+    };
+    fetchRestaurants();
   }, []);
 
   return (
@@ -29,71 +34,66 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Text className="text-h3 text-primary">LunchHub</Text>
-          <Text className="text-h6 text-primary">Nativewind classes</Text>
         </View>
-        <TouchableOpacity>
-          <Link href="/cart">
-            <View style={styles.cartIconContainer}>
-              <IconSymbol size={25} name="cart" color="#f06428" />
-              <View style={styles.cartBadge}>
-                <Text style={styles.cartBadgeText}>3</Text>
-              </View>
-            </View>
-          </Link>
-        </TouchableOpacity>
       </View>
 
       <ScrollView style={styles.scrollView}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Today Restaurants</Text>
-          {restaurants.map(restaurant => (
-            <TouchableOpacity
-              key={restaurant.id}
-              style={styles.restaurantCard}
-            >
-              <Link href={`/restaurants/${restaurant.id}`}>
-                <View style={styles.restaurantImageContainer}>
-                  <Image
-                    source={{ uri: restaurant.image }}
-                    style={styles.restaurantImage}
-                  />
-                  <View style={styles.restaurantImageOverlay}>
-                    <Text style={styles.restaurantName}>
-                      {restaurant.name}
-                    </Text>
-                    <Text style={styles.restaurantCuisine}>
-                      {restaurant.categories.join(", ")}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.restaurantInfo}>
-                  <View style={styles.restaurantTags}>
-                    <View style={styles.tag}>
-                      <Text style={styles.tagText}>
-                        Group order: 
-                        {' '}
-                        {restaurant.groupOrderMinimum}
-                        + people
+          {isLoading ? (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" />
+            </View>
+          ) : (
+            restaurants.map(restaurant => (
+              <TouchableOpacity
+                key={restaurant.id}
+                style={styles.restaurantCard}
+              >
+                <Link href={`/restaurants/${restaurant.id}`}>
+                  <View style={styles.restaurantImageContainer}>
+                    <Image
+                      source={{ uri: restaurant.image }}
+                      style={styles.restaurantImage}
+                    />
+                    <View style={styles.restaurantImageOverlay}>
+                      <Text style={styles.restaurantName}>
+                        {restaurant.name}
+                      </Text>
+                      <Text style={styles.restaurantCuisine}>
+                        {restaurant.categories.join(", ")}
                       </Text>
                     </View>
-                    <Text style={styles.orderTime}>
-                      Order by 
-                      {' '}
-                      {restaurant.orderDeadline}
+                  </View>
+                  <View style={styles.restaurantInfo}>
+                    <View style={styles.restaurantTags}>
+                      <View style={styles.tag}>
+                        <Text style={styles.tagText}>
+                          Group order: 
+                          {' '}
+                          {restaurant.groupOrderMinimum}
+                          + people
+                        </Text>
+                      </View>
+                      <Text style={styles.orderTime}>
+                        Order by 
+                        {' '}
+                        {restaurant.orderDeadline}
+                      </Text>
+                    </View>
+                    <Text style={styles.restaurantDescription}>
+                      {/* Placeholder description */}
+                      {restaurant.name === "Italian Delights"
+                        ? "Authentic Italian cuisine with fresh ingredients and homemade pasta."
+                        : restaurant.name === "Sushi Express"
+                        ? "Fresh sushi and Japanese favorites delivered to your office."
+                        : "Delicious food from " + restaurant.name}
                     </Text>
                   </View>
-                  <Text style={styles.restaurantDescription}>
-                    {/* Placeholder description */}
-                    {restaurant.name === "Italian Delights"
-                      ? "Authentic Italian cuisine with fresh ingredients and homemade pasta."
-                      : restaurant.name === "Sushi Express"
-                      ? "Fresh sushi and Japanese favorites delivered to your office."
-                      : "Delicious food from " + restaurant.name}
-                  </Text>
-                </View>
-              </Link>
-            </TouchableOpacity>
-          ))}
+                </Link>
+              </TouchableOpacity>
+            ))
+          )}
         </View>
 
         <View style={styles.section}>
@@ -160,6 +160,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   header: {
     height: 60,

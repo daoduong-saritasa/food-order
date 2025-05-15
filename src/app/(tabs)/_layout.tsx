@@ -14,17 +14,9 @@ const TABS = {
     title: "Home",
     id: "index",
   },
-  explore: {
-    title: "Explore",
-    id: "explore",
-  },
-  cart: {
-    title: "Cart",
-    id: "cart",
-  },
-  group: {
-    title: "Group",
-    id: "group",
+  query: {
+    title: "Query",
+    id: "query",
   },
   socket: {
     title: "Socket",
@@ -69,29 +61,11 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name={TABS.explore.id}
+          name={TABS.query.id}
           options={{
-            title: TABS.explore.title,
+            title: TABS.query.title,
             tabBarIcon: ({ color }) => (
-              <IconSymbol size={28} name="paperplane.fill" color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name={TABS.cart.id}
-          options={{
-            title: TABS.cart.title,
-            tabBarIcon: ({ color }) => (
-              <IconSymbol size={28} name="cart.fill" color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name={TABS.group.id}
-          options={{
-            title: TABS.group.title,
-            tabBarIcon: ({ color }) => (
-              <IconSymbol size={28} name="person.2.fill" color={color} />
+              <IconSymbol size={28} name="magnifyingglass" color={color} />
             ),
           }}
         />
