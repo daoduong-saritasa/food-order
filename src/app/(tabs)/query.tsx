@@ -17,7 +17,7 @@ export default function QueryScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 items-center justify-center">
+    <SafeAreaView className="flex-1 items-center justify-center pb-16">
       <View className="w-full px-4">
         <ScrollView>
           {data?.map(todo => (
@@ -30,9 +30,6 @@ export default function QueryScreen() {
                 {todo.title}
               </Text>
               <View className="text-right text-black">
-                {/* <Text>
-                  {todo.completed ? "Completed" : "Pending"}
-                </Text> */}
                 <IconSymbol
                   size={20}
                   name={todo.completed ? "checkmark.circle.fill" : "info.circle.fill"}
