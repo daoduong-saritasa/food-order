@@ -49,7 +49,7 @@ export default function SocketScreen() {
     <View style={styles.container}>
       <Text>
         Status:
-        {isConnected ? "connected" : "disconnected"}
+        {isConnected ? "Connected" : "Disconnected"}
       </Text>
       <Text>
         Transport:
