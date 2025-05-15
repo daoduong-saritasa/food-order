@@ -240,4 +240,28 @@ export default defineConfig([
       ],
     },
   },
+  {
+    files: ["src/api/dtos/*.ts"],
+    plugins: {
+      'dto-readonly': require('./src/utils/eslint/eslint-plugin-dto-readonly'),
+    },
+    rules: {
+      'dto-readonly/require-readonly-in-dto-type-alias': 'error',
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "TSInterfaceDeclaration[id.name=/Dto$/] TSPropertySignature[readonly=undefined]",
+          message: "Missing readonly modifier for the DTO property.",
+        },
+        {
+          selector: "TSTypeAliasDeclaration[id.name=/Dto$/] TypeLiteral > TSPropertySignature[readonly=undefined]",
+          message: "Missing readonly modifier for the DTO property.",
+        },
+        {
+          selector: "TSPropertySignature TSTypeAnnotation[typeAnnotation.type=TSArrayType]",
+          message: "Missing readonly type modifier for array.",
+        },
+      ],
+    },
+  },
 ]);

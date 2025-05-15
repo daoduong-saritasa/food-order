@@ -19,7 +19,7 @@ export type ValidationErrorDto<T extends Record<string, any>> = {
 } & {
 
   /** Non field errors. */
-   
+  // eslint-disable-next-line no-restricted-syntax
   readonly non_field_errors?: string[];
 };
 
