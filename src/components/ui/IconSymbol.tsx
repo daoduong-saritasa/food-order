@@ -30,6 +30,7 @@ const MAPPING = {
   "person.2.fill": "group",
   "person.fill": "person",
   "info.circle.fill": "info-outline",
+  "checkmark.circle.fill": "check-circle",
 } as IconMapping;
 
 /**
