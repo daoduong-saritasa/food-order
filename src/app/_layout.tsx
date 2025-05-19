@@ -8,7 +8,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "../../global.css";
-import Providers from "./provider";
+import QueryProviders from "./provider";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -23,7 +23,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Providers>
+      <QueryProviders>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen
@@ -33,7 +33,7 @@ export default function RootLayout() {
           <Stack.Screen name="+not-found" options={{ title: "Not Found" }} />
         </Stack>
         <StatusBar style="auto" />
-      </Providers>
+      </QueryProviders>
     </ThemeProvider>
   );
 }
