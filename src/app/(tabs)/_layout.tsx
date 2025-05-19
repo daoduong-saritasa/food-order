@@ -1,13 +1,12 @@
-import { Tabs, useSegments } from "expo-router";
-import React, { useEffect, useState } from "react";
-import { Platform } from "react-native";
-
-import { ComponentWithHead } from "@/components/ComponentWithHead";
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { Tabs, useSegments } from "expo-router";
+import Head from "expo-router/head";
+import React, { useEffect, useState } from "react";
+import { Platform } from "react-native";
 
 const TABS = {
   index: {
@@ -35,7 +34,15 @@ export default function TabLayout() {
   }, [segments]);
 
   return (
-    <ComponentWithHead title={title}>
+    <>
+      {Platform.OS === "web" && (
+        <Head>
+          <title>
+            Lunch Hub
+            {title ? `| ${title}` : ""}
+          </title>
+        </Head>
+      )}
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
@@ -79,6 +86,6 @@ export default function TabLayout() {
           }}
         />
       </Tabs>
-    </ComponentWithHead>
+    </>
   );
 }

@@ -4,19 +4,21 @@
     "slug": "lunchhub",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/logo-mobile.svg",
+    "icon": "./assets/images/logo-mobile.png",
     "scheme": "lunchhub",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.lunchhub"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/logo-mobile.svg",
+        "foregroundImage": "./assets/images/logo-mobile.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.anonymous.lunchhub"
     },
     "web": {
       "bundler": "metro",
@@ -28,7 +30,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/logo-mobile.svg",
+          "image": "./assets/images/logo-mobile.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
