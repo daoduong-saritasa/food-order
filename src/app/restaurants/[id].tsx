@@ -1,12 +1,13 @@
 import { IconSymbol } from "@//components/ui/IconSymbol";
 import { getRestaurant, type Restaurant } from "@/api/services/mockRestaurant";
-import { ComponentWithHead } from "@/components/ComponentWithHead";
 import { useRoute } from "@react-navigation/native";
 import { Link } from "expo-router";
+import Head from "expo-router/head";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Image,
+  Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -85,7 +86,15 @@ export default function RestaurantScreen() {
   }
 
   return (
-    <ComponentWithHead title={restaurant.name}>
+    <>
+      {Platform.OS === "web" && (
+        <Head>
+          <title>
+            Lunch Hub
+            {restaurant.name ? `| ${restaurant.name}` : ""}
+          </title>
+        </Head>
+      )}
       <View style={styles.container}>
         <SafeAreaView style={styles.header}>
           <TouchableOpacity style={styles.backButton}>
@@ -93,16 +102,6 @@ export default function RestaurantScreen() {
               <View style={styles.backButtonContent}>
                 <IconSymbol size={28} name="chevron.left" color="#000" />
                 <Text style={styles.backButtonText}>Back</Text>
-              </View>
-            </Link>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.cartButton}>
-            <Link href="/cart">
-              <View style={styles.cartIconContainer}>
-                <IconSymbol size={25} name="cart" color="#f06428" />
-                <View style={styles.cartBadge}>
-                  <Text style={styles.cartBadgeText}>3</Text>
-                </View>
               </View>
             </Link>
           </TouchableOpacity>
@@ -204,7 +203,7 @@ export default function RestaurantScreen() {
           </View>
         </ScrollView>
       </View>
-    </ComponentWithHead>
+    </>
   );
 }
 

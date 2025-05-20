@@ -7,6 +7,8 @@ export default function SocketScreen() {
   const socket = useSocket();
   const [isConnected, setIsConnected] = useState(false);
   const [transport, setTransport] = useState("N/A");
+  const [name, setName] = useState("");
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (socket.connected) {
@@ -30,9 +32,16 @@ export default function SocketScreen() {
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
 
+    socket.on("count", setCount);
+
+    // Listen for 'name' messages from server
+    socket.on("name", setName);
+
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
+      socket.off("name", setName);
+      socket.off("count", setCount);
     };
   }, [socket]);
 
@@ -40,11 +49,19 @@ export default function SocketScreen() {
     <View style={styles.container}>
       <Text>
         Status:
-        {isConnected ? "connected" : "disconnected"}
+        {isConnected ? "Connected" : "Disconnected"}
       </Text>
       <Text>
         Transport:
         {transport}
+      </Text>
+      <Text>
+        Name from server:
+        {name}
+      </Text>
+      <Text>
+        Count:
+        {count}
       </Text>
     </View>
   );

@@ -1,6 +1,16 @@
-import { io } from "socket.io-client";
+import { io, type Socket } from "socket.io-client";
+
+import { CONFIG } from "@/api/config";
+import { useMemo } from "react";
+
+let socket: Socket;
 
 export const useSocket = () => {
-  const socket = io("http://localhost:8000");
-  return socket;
+  // Only create the socket once (singleton)
+  return useMemo(() => {
+    if (!socket) {
+      socket = io(CONFIG.socketUrl);
+    }
+    return socket;
+  }, []);
 };
