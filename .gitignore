@@ -37,3 +37,12 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+
+# Android & iOS folders
+/android/
+/ios/
+
+# local builds
+*.apk
+*.aab
+*.ipa
