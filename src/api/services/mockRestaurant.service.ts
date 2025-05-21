@@ -1,4 +1,4 @@
-import { type Dish, ITALIAN_POPULAR, JAPANESE_POPULAR, PASTA, PIZZA, RAMEN, SALADS, SUSHI } from "./mockDishes";
+import { type Dish, ITALIAN_POPULAR, JAPANESE_POPULAR, PASTA, PIZZA, RAMEN, SALADS, SUSHI } from "./mockDishes.service";
 
 export type Restaurant = {
   id: number;

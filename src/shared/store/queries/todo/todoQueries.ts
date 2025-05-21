@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-import { MockTodoApi } from '@/api/services/mockTodo';
+import { MockTodoApi } from '@/api/services/mockTodo.service';
 import { todoKeys } from './keys';
 
 /** Hook to get todos. */

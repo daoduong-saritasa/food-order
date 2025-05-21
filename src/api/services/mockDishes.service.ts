@@ -63,10 +63,6 @@ export const SALADS = [
   },
 ];
 
-/**
- * 
- */
-
 export const SUSHI = [
   {
     id: "su1",

@@ -1,5 +1,5 @@
-import { type MockTodo } from "@/models/mockTodo";
-import { type MockTodoDto } from "../dtos/mockTodoDto";
+import { type MockTodo } from "@/shared/models/mockTodo";
+import { type MockTodoDto } from "../dtos/mockTodo.dto";
 import { type IMapperFromDto } from "./mappers";
 
 /** Todo mapper. */

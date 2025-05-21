@@ -1,8 +1,8 @@
 // See appError.ts to find out why this rule is disabled.
 
-import { type EntityValidationErrors } from "src/models/appError";
+import { type EntityValidationErrors } from "@/shared/models/appError";
 
-import { type ValidationErrorDto } from "../dtos/validationErrorDto";
+import { type ValidationErrorDto } from "../dtos/validationError.dto";
 
 /** Mapper of DTO to domain model. */
 export type IMapperFromDto<TDto, TModel> = {

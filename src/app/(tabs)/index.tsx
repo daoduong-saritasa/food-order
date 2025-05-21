@@ -1,4 +1,4 @@
-import { getRestaurants, type Restaurant } from "@/api/services/mockRestaurant";
+import { getRestaurants, type Restaurant } from "@/api/services/mockRestaurant.service";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";

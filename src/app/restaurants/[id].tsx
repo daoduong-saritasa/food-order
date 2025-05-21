@@ -1,5 +1,5 @@
-import { IconSymbol } from "@//components/ui/IconSymbol";
-import { getRestaurant, type Restaurant } from "@/api/services/mockRestaurant";
+import { getRestaurant, type Restaurant } from "@/api/services/mockRestaurant.service";
+import { MaterialIcons } from '@expo/vector-icons';
 import { useRoute } from "@react-navigation/native";
 import { Link } from "expo-router";
 import Head from "expo-router/head";
@@ -18,6 +18,7 @@ import {
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function RestaurantScreen() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const route = useRoute<any>();
   const { id } = route.params as { id: string };
   const [activeTab, setActiveTab] = useState("popular");
@@ -100,7 +101,7 @@ export default function RestaurantScreen() {
           <TouchableOpacity style={styles.backButton}>
             <Link href="/">
               <View style={styles.backButtonContent}>
-                <IconSymbol size={28} name="chevron.left" color="#000" />
+                <MaterialIcons size={28} name="chevron-left" />
                 <Text style={styles.backButtonText}>Back</Text>
               </View>
             </Link>

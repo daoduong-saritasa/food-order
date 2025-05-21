@@ -1,5 +1,5 @@
-import { type GeneralApiError } from "@/api/dtos/apiErrorDto";
-import { type ApiErrorDto } from "@/api/dtos/validationErrorDto";
+import { type GeneralApiError } from "@/api/dtos/apiError.dto";
+import { type ApiErrorDto } from "@/api/dtos/validationError.dto";
 
 /**
  * Type guard for AxiosError.
@@ -7,6 +7,7 @@ import { type ApiErrorDto } from "@/api/dtos/validationErrorDto";
  */
 // See appError.ts to find out why this rule is disabled.
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isApiError<TDto extends Record<string, any>>(
   error: unknown
 ): error is GeneralApiError<ApiErrorDto<TDto>> {

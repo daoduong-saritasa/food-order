@@ -1,9 +1,9 @@
-import { type MockTodo } from "@/models/mockTodo";
-import { isApiError } from "@/utils/axiosErrorGuard";
-import { type MockTodoDto } from "../dtos/mockTodoDto";
+import { type MockTodo } from "@/shared/models/mockTodo";
+import { isApiError } from '@/shared/utils/axiosErrorGuard';
+import { type MockTodoDto } from "../dtos/mockTodo.dto";
 import { http } from "../http";
-import { AppErrorMapper } from "../mappers/appErrorMapper";
-import { todoMapper } from "../mappers/todoMapper";
+import { AppErrorMapper } from "../mappers/appError.mapper";
+import { todoMapper } from "../mappers/todo.mapper";
 
 /** Mock todo api service. */
 export namespace MockTodoApi {

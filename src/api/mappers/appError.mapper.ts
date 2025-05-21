@@ -1,9 +1,9 @@
 // See appError.ts to find out why this rule is disabled.
 
+import { AppError } from "@/shared/models/appError";
 import { type AxiosError } from "axios";
-import { AppError } from "src/models/appError";
 
-import { type ApiErrorDto } from "../dtos/validationErrorDto";
+import { type ApiErrorDto } from "../dtos/validationError.dto";
 
 import { type ValidationErrorMapper } from "./mappers";
 
