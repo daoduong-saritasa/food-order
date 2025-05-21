@@ -34,7 +34,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Text className="text-h4 text-primary">LunchHub</Text>
+          <Text className="text-h4 text-primary">Split Now</Text>
         </View>
       </View>
 

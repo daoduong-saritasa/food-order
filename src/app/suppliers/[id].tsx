@@ -91,7 +91,7 @@ export default function RestaurantScreen() {
       {Platform.OS === "web" && (
         <Head>
           <title>
-            Lunch Hub
+            Split Now
             {restaurant.name ? ` | ${restaurant.name}` : ""}
           </title>
         </Head>

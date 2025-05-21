@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "Lunch Hub",
-    "slug": "lunchhub",
+    "name": "Split Now",
+    "slug": "splitnow",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/logo-mobile.png",
-    "scheme": "lunchhub",
+    "scheme": "splitnow",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.lunchhub"
+      "bundleIdentifier": "com.anonymous.splitnow"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +18,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.lunchhub"
+      "package": "com.anonymous.splitnow"
     },
     "web": {
       "bundler": "metro",
