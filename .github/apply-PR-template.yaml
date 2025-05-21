@@ -1,0 +1,33 @@
+name: Apply PR Template
+on:
+  pull_request:
+    types: [opened, edited]
+jobs:
+  apply-template:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            src/**
+      - name: Apply PR template if directory matches
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+
+            const template = `## Pull Request Checklist\n- [ ] I confirmed that I self-review my code\n- [ ] I have tested my changes\n\n`;
+
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              body: template + (pr.body || '')
+            });
