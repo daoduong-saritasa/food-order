@@ -1,4 +1,4 @@
-import { Colors } from "@/shared/constants/Colors";
+import { Colors } from "@/shared/constants/colors";
 import { useThemeColor } from '@/shared/hooks/useThemeColor';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Tabs } from "expo-router";

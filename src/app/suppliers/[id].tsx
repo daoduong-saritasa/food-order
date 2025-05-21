@@ -92,7 +92,7 @@ export default function RestaurantScreen() {
         <Head>
           <title>
             Lunch Hub
-            {restaurant.name ? `| ${restaurant.name}` : ""}
+            {restaurant.name ? ` | ${restaurant.name}` : ""}
           </title>
         </Head>
       )}
