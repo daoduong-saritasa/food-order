@@ -5,6 +5,7 @@ import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { Tabs, useSegments } from "expo-router";
 import Head from "expo-router/head";
+import { type SymbolViewProps } from "expo-symbols";
 import React, { useEffect, useState } from "react";
 import { Platform } from "react-native";
 
@@ -12,14 +13,17 @@ const TABS = {
   index: {
     title: "Home",
     id: "index",
+    icon: "house.fill" as SymbolViewProps["name"],
   },
   query: {
     title: "Query",
     id: "query",
+    icon: "magnifyingglass" as SymbolViewProps["name"],
   },
   socket: {
     title: "Socket",
     id: "socket",
+    icon: "person.2.fill" as SymbolViewProps["name"],
   },
 };
 
@@ -58,33 +62,18 @@ export default function TabLayout() {
           }),
         }}
       >
-        <Tabs.Screen
-          name={TABS.index.id}
-          options={{
-            title: TABS.index.title,
-            tabBarIcon: ({ color }) => (
-              <IconSymbol size={28} name="house.fill" color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name={TABS.query.id}
-          options={{
-            title: TABS.query.title,
-            tabBarIcon: ({ color }) => (
-              <IconSymbol size={28} name="magnifyingglass" color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name={TABS.socket.id}
-          options={{
-            title: TABS.socket.title,
-            tabBarIcon: ({ color }) => (
-              <IconSymbol size={28} name="person.2.fill" color={color} />
-            ),
-          }}
-        />
+        {Object.entries(TABS).map(([key, tab]) => (
+          <Tabs.Screen
+            key={key}
+            name={tab.id}
+            options={{
+              title: tab.title,
+              tabBarIcon: ({ color }) => (
+                <IconSymbol size={28} name={tab.icon} color={color} />
+              ),
+            }}
+          />
+        ))}
       </Tabs>
     </>
   );
