@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import {routePaths} from '@/shared/utils/funcs/route-paths/route-paths';
 
 export default function HomeScreen() {
   const tabBarHeight = useBottomTabBarHeight();
@@ -50,7 +51,7 @@ export default function HomeScreen() {
                 key={restaurant.id}
                 style={styles.restaurantCard}
               >
-                <Link href={`/restaurants/${restaurant.id}`}>
+                <Link href={routePaths.suppliers.children.detail.url({id: restaurant.id})}>
                   <View style={styles.restaurantImageContainer}>
                     <Image
                       source={{ uri: restaurant.image }}
