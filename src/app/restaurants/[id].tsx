@@ -1,19 +1,19 @@
-import { IconSymbol } from "@//components/ui/IconSymbol";
 import { getRestaurant, type Restaurant } from "@/api/services/mockRestaurant";
+import { IconSymbol } from "@/components/ui/IconSymbol";
 import { useRoute } from "@react-navigation/native";
 import { Link } from "expo-router";
 import Head from "expo-router/head";
 import { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
-  Image,
-  Platform,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    ActivityIndicator,
+    Image,
+    Platform,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
