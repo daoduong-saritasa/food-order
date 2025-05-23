@@ -30,7 +30,12 @@ jobs:
 
             // Only update if the PR body doesn't already contain our template
             if (!pr.body?.includes('## Pull Request Checklist')) {
-              const template = `## Pull Request Checklist\n- [ ] I confirmed that I self-review my code\n- [ ] I have tested my changes\n\n`;
+              const template = `## Pull Request Checklist
+              - [ ] I confirmed that I self-review my code (No issues with indents, no console.log and all functions have JSDoc)
+              - [ ] I have tested my changes
+              - [ ] I uploaded screenshots of my changes (optional)
+              - [ ] I tested all places that use the updated functions
+              `;
               
               await github.rest.pulls.update({
                 owner: context.repo.owner,
