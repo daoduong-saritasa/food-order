@@ -5,6 +5,9 @@ const baseRoutePaths = buildRoutePaths({
 } as const);
 
 const pageRoutePaths = buildRoutePaths({
+  home: {
+    path: '/',
+  },
   suppliers: {
     path: 'suppliers',
     children: {

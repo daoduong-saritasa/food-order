@@ -1,18 +1,17 @@
-import { getRestaurants, type Restaurant } from "@/api/services/mockRestaurant.service";
+import { routePaths } from '@/shared/utils/funcs/route-paths/route-paths';
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Image,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
-import {routePaths} from '@/shared/utils/funcs/route-paths/route-paths';
+import { getRestaurants, type Restaurant } from "@/api/services/mockRestaurant.service";
 
 export default function HomeScreen() {
   const tabBarHeight = useBottomTabBarHeight();
@@ -30,131 +29,129 @@ export default function HomeScreen() {
     fetchRestaurants();
   }, []);
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <Text className="text-h4 text-primary">Split Now</Text>
+  return <View style={styles.container}>
+    <View style={styles.header}>
+      <View style={styles.headerLeft}>
+        <Text className="text-h4 text-primary">Split Now</Text>
+      </View>
+    </View>
+
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Today Restaurants</Text>
+        {isLoading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" />
+          </View>
+        ) : (
+          restaurants.map(restaurant => (
+            <TouchableOpacity
+              key={restaurant.id}
+              style={styles.restaurantCard}
+            >
+              <Link href={routePaths.suppliers.children.detail.url({ id: restaurant.id })}>
+                <View style={styles.restaurantImageContainer}>
+                  <Image
+                    source={{ uri: restaurant.image }}
+                    style={styles.restaurantImage}
+                  />
+                  <View style={styles.restaurantImageOverlay}>
+                    <Text style={styles.restaurantName}>
+                      {restaurant.name}
+                    </Text>
+                    <Text style={styles.restaurantCuisine}>
+                      {restaurant.categories.join(", ")}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.restaurantInfo}>
+                  <View style={styles.restaurantTags}>
+                    <View style={styles.tag}>
+                      <Text style={styles.tagText}>
+                        Group order:
+                        {' '}
+                        {restaurant.groupOrderMinimum}
+                        + people
+                      </Text>
+                    </View>
+                    <Text style={styles.orderTime}>
+                      Order by
+                      {' '}
+                      {restaurant.orderDeadline}
+                    </Text>
+                  </View>
+                  <Text style={styles.restaurantDescription}>
+                    {/* Placeholder description */}
+                    {restaurant.name === "Italian Delights"
+                      ? "Authentic Italian cuisine with fresh ingredients and homemade pasta."
+                      : restaurant.name === "Sushi Express"
+                        ? "Fresh sushi and Japanese favorites delivered to your office."
+                        : "Delicious food from " + restaurant.name}
+                  </Text>
+                </View>
+              </Link>
+            </TouchableOpacity>
+          ))
+        )}
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Active Group Orders</Text>
+        <View style={styles.groupOrderCard}>
+          <View style={styles.groupOrderHeader}>
+            <View>
+              <Text style={styles.groupOrderTitle}>
+                Engineering Team Lunch
+              </Text>
+              <Text style={styles.groupOrderSubtitle}>
+                Italian Delights • Closes in 25 min
+              </Text>
+            </View>
+            <TouchableOpacity style={styles.joinButton}>
+              <Text style={styles.joinButtonText}>Join Order</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.membersList}>
+            <View style={styles.memberChip}>
+              <View style={styles.memberAvatar}>
+                <Text style={styles.memberInitials}>JD</Text>
+              </View>
+              <Text style={styles.memberName}>John D.</Text>
+            </View>
+            <View style={styles.memberChip}>
+              <View style={styles.memberAvatar}>
+                <Text style={styles.memberInitials}>AS</Text>
+              </View>
+              <Text style={styles.memberName}>Amy S.</Text>
+            </View>
+            <View style={styles.memberChip}>
+              <View style={styles.memberAvatar}>
+                <Text style={styles.memberInitials}>MK</Text>
+              </View>
+              <Text style={styles.memberName}>Mike K.</Text>
+            </View>
+            <View style={styles.memberChip}>
+              <View style={styles.memberAvatar}>
+                <Text style={styles.memberInitials}>+2</Text>
+              </View>
+            </View>
+          </View>
         </View>
       </View>
 
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Today Restaurants</Text>
-          {isLoading ? (
-            <View style={styles.loadingContainer}>
-              <ActivityIndicator size="large" />
-            </View>
-          ) : (
-            restaurants.map(restaurant => (
-              <TouchableOpacity
-                key={restaurant.id}
-                style={styles.restaurantCard}
-              >
-                <Link href={routePaths.suppliers.children.detail.url({id: restaurant.id})}>
-                  <View style={styles.restaurantImageContainer}>
-                    <Image
-                      source={{ uri: restaurant.image }}
-                      style={styles.restaurantImage}
-                    />
-                    <View style={styles.restaurantImageOverlay}>
-                      <Text style={styles.restaurantName}>
-                        {restaurant.name}
-                      </Text>
-                      <Text style={styles.restaurantCuisine}>
-                        {restaurant.categories.join(", ")}
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={styles.restaurantInfo}>
-                    <View style={styles.restaurantTags}>
-                      <View style={styles.tag}>
-                        <Text style={styles.tagText}>
-                          Group order: 
-                          {' '}
-                          {restaurant.groupOrderMinimum}
-                          + people
-                        </Text>
-                      </View>
-                      <Text style={styles.orderTime}>
-                        Order by 
-                        {' '}
-                        {restaurant.orderDeadline}
-                      </Text>
-                    </View>
-                    <Text style={styles.restaurantDescription}>
-                      {/* Placeholder description */}
-                      {restaurant.name === "Italian Delights"
-                        ? "Authentic Italian cuisine with fresh ingredients and homemade pasta."
-                        : restaurant.name === "Sushi Express"
-                        ? "Fresh sushi and Japanese favorites delivered to your office."
-                        : "Delicious food from " + restaurant.name}
-                    </Text>
-                  </View>
-                </Link>
-              </TouchableOpacity>
-            ))
-          )}
+      <View style={[styles.section, { paddingBottom: tabBarHeight }]}>
+        <Text style={styles.sectionTitle}>Quick Actions</Text>
+        <View style={styles.quickActions}>
+          <TouchableOpacity style={styles.actionButton}>
+            <Text style={styles.actionButtonText}>Start Group Order</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.actionButton}>
+            <Text style={styles.actionButtonText}>My Favorites</Text>
+          </TouchableOpacity>
         </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Active Group Orders</Text>
-          <View style={styles.groupOrderCard}>
-            <View style={styles.groupOrderHeader}>
-              <View>
-                <Text style={styles.groupOrderTitle}>
-                  Engineering Team Lunch
-                </Text>
-                <Text style={styles.groupOrderSubtitle}>
-                  Italian Delights • Closes in 25 min
-                </Text>
-              </View>
-              <TouchableOpacity style={styles.joinButton}>
-                <Text style={styles.joinButtonText}>Join Order</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.membersList}>
-              <View style={styles.memberChip}>
-                <View style={styles.memberAvatar}>
-                  <Text style={styles.memberInitials}>JD</Text>
-                </View>
-                <Text style={styles.memberName}>John D.</Text>
-              </View>
-              <View style={styles.memberChip}>
-                <View style={styles.memberAvatar}>
-                  <Text style={styles.memberInitials}>AS</Text>
-                </View>
-                <Text style={styles.memberName}>Amy S.</Text>
-              </View>
-              <View style={styles.memberChip}>
-                <View style={styles.memberAvatar}>
-                  <Text style={styles.memberInitials}>MK</Text>
-                </View>
-                <Text style={styles.memberName}>Mike K.</Text>
-              </View>
-              <View style={styles.memberChip}>
-                <View style={styles.memberAvatar}>
-                  <Text style={styles.memberInitials}>+2</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-
-        <View style={[styles.section, { paddingBottom: tabBarHeight }]}>
-          <Text style={styles.sectionTitle}>Quick Actions</Text>
-          <View style={styles.quickActions}>
-            <TouchableOpacity style={styles.actionButton}>
-              <Text style={styles.actionButtonText}>Start Group Order</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
-              <Text style={styles.actionButtonText}>My Favorites</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+      </View>
+    </ScrollView>
+  </View>;
 }
 
 const styles = StyleSheet.create({

@@ -35,10 +35,10 @@ type RoutePathOptions = {
 type RoutePath = {
 
   /** Path used in routing modules. */
-  readonly path: string;
+  readonly path: RelativePathString;
 
   /** Navigation url used for navigation in components. */
-  readonly url: string;
+  readonly url: RelativePathString;
 };
 
 /** Route path with children. */
