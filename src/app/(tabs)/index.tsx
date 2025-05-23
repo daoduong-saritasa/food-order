@@ -1,17 +1,17 @@
-import { getRestaurants, type Restaurant } from "@/api/services/mockRestaurant";
+import { routePaths } from '@/shared/utils/funcs/route-paths/route-paths';
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Image,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
+import { getRestaurants, type Restaurant } from "@/api/services/mockRestaurant.service";
 
 export default function HomeScreen() {
   const tabBarHeight = useBottomTabBarHeight();
@@ -30,10 +30,10 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Text className="text-h4 text-primary">LunchHub</Text>
+          <Text className="text-h4 text-primary">Split Now</Text>
         </View>
       </View>
 
@@ -44,56 +44,56 @@ export default function HomeScreen() {
             <View style={styles.loadingContainer}>
               <ActivityIndicator size="large" />
             </View>
-          ) : (
-            restaurants.map(restaurant => (
-              <TouchableOpacity
-                key={restaurant.id}
-                style={styles.restaurantCard}
-              >
-                <Link href={`/restaurants/${restaurant.id}`}>
-                  <View style={styles.restaurantImageContainer}>
-                    <Image
-                      source={{ uri: restaurant.image }}
-                      style={styles.restaurantImage}
-                    />
-                    <View style={styles.restaurantImageOverlay}>
-                      <Text style={styles.restaurantName}>
-                        {restaurant.name}
-                      </Text>
-                      <Text style={styles.restaurantCuisine}>
-                        {restaurant.categories.join(", ")}
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={styles.restaurantInfo}>
-                    <View style={styles.restaurantTags}>
-                      <View style={styles.tag}>
-                        <Text style={styles.tagText}>
-                          Group order: 
-                          {' '}
-                          {restaurant.groupOrderMinimum}
-                          + people
-                        </Text>
-                      </View>
-                      <Text style={styles.orderTime}>
-                        Order by 
-                        {' '}
-                        {restaurant.orderDeadline}
-                      </Text>
-                    </View>
-                    <Text style={styles.restaurantDescription}>
-                      {/* Placeholder description */}
-                      {restaurant.name === "Italian Delights"
-                        ? "Authentic Italian cuisine with fresh ingredients and homemade pasta."
-                        : restaurant.name === "Sushi Express"
-                        ? "Fresh sushi and Japanese favorites delivered to your office."
-                        : "Delicious food from " + restaurant.name}
+        ) : (
+          restaurants.map(restaurant => (
+            <TouchableOpacity
+              key={restaurant.id}
+              style={styles.restaurantCard}
+            >
+              <Link href={routePaths.suppliers.children.detail.url({ id: restaurant.id })}>
+                <View style={styles.restaurantImageContainer}>
+                  <Image
+                    source={{ uri: restaurant.image }}
+                    style={styles.restaurantImage}
+                  />
+                  <View style={styles.restaurantImageOverlay}>
+                    <Text style={styles.restaurantName}>
+                      {restaurant.name}
+                    </Text>
+                    <Text style={styles.restaurantCuisine}>
+                      {restaurant.categories.join(", ")}
                     </Text>
                   </View>
-                </Link>
-              </TouchableOpacity>
-            ))
-          )}
+                </View>
+                <View style={styles.restaurantInfo}>
+                  <View style={styles.restaurantTags}>
+                    <View style={styles.tag}>
+                      <Text style={styles.tagText}>
+                        Group order:
+                        {' '}
+                        {restaurant.groupOrderMinimum}
+                        + people
+                      </Text>
+                    </View>
+                    <Text style={styles.orderTime}>
+                      Order by
+                      {' '}
+                      {restaurant.orderDeadline}
+                    </Text>
+                  </View>
+                  <Text style={styles.restaurantDescription}>
+                    {/* Placeholder description */}
+                    {restaurant.name === "Italian Delights"
+                      ? "Authentic Italian cuisine with fresh ingredients and homemade pasta."
+                      : restaurant.name === "Sushi Express"
+                        ? "Fresh sushi and Japanese favorites delivered to your office."
+                        : "Delicious food from " + restaurant.name}
+                  </Text>
+                </View>
+              </Link>
+            </TouchableOpacity>
+          ))
+        )}
         </View>
 
         <View style={styles.section}>
@@ -152,7 +152,7 @@ export default function HomeScreen() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

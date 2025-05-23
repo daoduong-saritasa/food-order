@@ -1,6 +1,5 @@
-import { IconSymbol } from "@/components/ui/IconSymbol";
-import { type MockTodo } from "@/models/mockTodo";
-import { useTodos } from "@/store/queries/todo/todoQueries";
+import { type MockTodo } from "@/shared/models/mockTodo";
+import { useTodos } from "@/shared/store/queries/todo/todoQueries";
 import {
   ActivityIndicator,
   FlatList,
@@ -32,13 +31,6 @@ export default function QueryScreen() {
       <Text className="flex flex-wrap flex-1">
         {item.title}
       </Text>
-      <View className="text-right text-black">
-        <IconSymbol
-          size={20}
-          name={item.completed ? "checkmark.circle.fill" : "info.circle.fill"}
-          color={item.completed ? "green" : "blue"}
-        />
-      </View>
     </View>
   );
 

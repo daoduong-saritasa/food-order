@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import { useSocket } from "../../hooks/useSocket";
+import { useSocket } from "../../shared/hooks/useSocket";
 
 export default function SocketScreen() {
   const socket = useSocket();

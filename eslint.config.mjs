@@ -33,6 +33,7 @@ export default defineConfig([
     },
 
     rules: {
+      "@typescript-eslint/no-explicit-any": "error",
       "no-void": "error",
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/member-ordering": "off",
