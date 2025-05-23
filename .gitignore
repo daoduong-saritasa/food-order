@@ -31,9 +31,21 @@ yarn-error.*
 *.pem
 
 # local env files
+.env
+.env.staging
+.env.production
 .env*.local
 
 # typescript
 *.tsbuildinfo
 
-app-example
+.vscode
+
+# Android & iOS folders
+/android/
+/ios/
+
+# local builds
+*.apk
+*.aab
+*.ipa
