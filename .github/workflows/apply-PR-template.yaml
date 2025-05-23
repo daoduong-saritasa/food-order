@@ -28,11 +28,14 @@ jobs:
               pull_number: context.issue.number
             });
 
-            const template = `## Pull Request Checklist\n- [ ] I confirmed that I self-review my code\n- [ ] I have tested my changes\n\n`;
-
-            await github.rest.pulls.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number,
-              body: template + (pr.body || '')
-            });
+            // Only update if the PR body doesn't already contain our template
+            if (!pr.body?.includes('## Pull Request Checklist')) {
+              const template = `## Pull Request Checklist\n- [ ] I confirmed that I self-review my code\n- [ ] I have tested my changes\n\n`;
+              
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                body: template + (pr.body || '')
+              });
+            }
