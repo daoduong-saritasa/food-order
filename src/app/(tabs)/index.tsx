@@ -29,20 +29,21 @@ export default function HomeScreen() {
     fetchRestaurants();
   }, []);
 
-  return <View style={styles.container}>
-    <View style={styles.header}>
-      <View style={styles.headerLeft}>
-        <Text className="text-h4 text-primary">Split Now</Text>
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <Text className="text-h4 text-primary">Split Now</Text>
+        </View>
       </View>
-    </View>
 
-    <ScrollView style={styles.scrollView}>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Today Restaurants</Text>
-        {isLoading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" />
-          </View>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Today Restaurants</Text>
+          {isLoading ? (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" />
+            </View>
         ) : (
           restaurants.map(restaurant => (
             <TouchableOpacity
@@ -93,65 +94,66 @@ export default function HomeScreen() {
             </TouchableOpacity>
           ))
         )}
-      </View>
+        </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Active Group Orders</Text>
-        <View style={styles.groupOrderCard}>
-          <View style={styles.groupOrderHeader}>
-            <View>
-              <Text style={styles.groupOrderTitle}>
-                Engineering Team Lunch
-              </Text>
-              <Text style={styles.groupOrderSubtitle}>
-                Italian Delights • Closes in 25 min
-              </Text>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Active Group Orders</Text>
+          <View style={styles.groupOrderCard}>
+            <View style={styles.groupOrderHeader}>
+              <View>
+                <Text style={styles.groupOrderTitle}>
+                  Engineering Team Lunch
+                </Text>
+                <Text style={styles.groupOrderSubtitle}>
+                  Italian Delights • Closes in 25 min
+                </Text>
+              </View>
+              <TouchableOpacity style={styles.joinButton}>
+                <Text style={styles.joinButtonText}>Join Order</Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.joinButton}>
-              <Text style={styles.joinButtonText}>Join Order</Text>
+            <View style={styles.membersList}>
+              <View style={styles.memberChip}>
+                <View style={styles.memberAvatar}>
+                  <Text style={styles.memberInitials}>JD</Text>
+                </View>
+                <Text style={styles.memberName}>John D.</Text>
+              </View>
+              <View style={styles.memberChip}>
+                <View style={styles.memberAvatar}>
+                  <Text style={styles.memberInitials}>AS</Text>
+                </View>
+                <Text style={styles.memberName}>Amy S.</Text>
+              </View>
+              <View style={styles.memberChip}>
+                <View style={styles.memberAvatar}>
+                  <Text style={styles.memberInitials}>MK</Text>
+                </View>
+                <Text style={styles.memberName}>Mike K.</Text>
+              </View>
+              <View style={styles.memberChip}>
+                <View style={styles.memberAvatar}>
+                  <Text style={styles.memberInitials}>+2</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        <View style={[styles.section, { paddingBottom: tabBarHeight }]}>
+          <Text style={styles.sectionTitle}>Quick Actions</Text>
+          <View style={styles.quickActions}>
+            <TouchableOpacity style={styles.actionButton}>
+              <Text style={styles.actionButtonText}>Start Group Order</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionButton}>
+              <Text style={styles.actionButtonText}>My Favorites</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.membersList}>
-            <View style={styles.memberChip}>
-              <View style={styles.memberAvatar}>
-                <Text style={styles.memberInitials}>JD</Text>
-              </View>
-              <Text style={styles.memberName}>John D.</Text>
-            </View>
-            <View style={styles.memberChip}>
-              <View style={styles.memberAvatar}>
-                <Text style={styles.memberInitials}>AS</Text>
-              </View>
-              <Text style={styles.memberName}>Amy S.</Text>
-            </View>
-            <View style={styles.memberChip}>
-              <View style={styles.memberAvatar}>
-                <Text style={styles.memberInitials}>MK</Text>
-              </View>
-              <Text style={styles.memberName}>Mike K.</Text>
-            </View>
-            <View style={styles.memberChip}>
-              <View style={styles.memberAvatar}>
-                <Text style={styles.memberInitials}>+2</Text>
-              </View>
-            </View>
-          </View>
         </View>
-      </View>
-
-      <View style={[styles.section, { paddingBottom: tabBarHeight }]}>
-        <Text style={styles.sectionTitle}>Quick Actions</Text>
-        <View style={styles.quickActions}>
-          <TouchableOpacity style={styles.actionButton}>
-            <Text style={styles.actionButtonText}>Start Group Order</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton}>
-            <Text style={styles.actionButtonText}>My Favorites</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
-  </View>;
+      </ScrollView>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

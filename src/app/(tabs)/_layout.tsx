@@ -2,21 +2,33 @@ import { Colors } from "@/shared/constants/colors";
 import { useThemeColor } from '@/shared/hooks/useThemeColor';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Tabs } from "expo-router";
-import React from "react";
-const TABS = {
-  index: {
+import React, { type ComponentProps } from "react";
+
+type MaterialIconName = ComponentProps<typeof MaterialIcons>['name'];
+
+type Tab = {
+  readonly title: string;
+  readonly id: string;
+  readonly icon: MaterialIconName;
+}
+
+const TABS: Tab[] = [
+  {
     title: "Home",
     id: "index",
+    icon: "home",
   },
-  query: {
+  {
     title: "Query",
     id: "query",
+    icon: "search",
   },
-  socket: {
+  {
     title: "Socket",
     id: "socket",
+    icon: "group",
   },
-};
+];
 
 export default function TabLayout() {
   const tabBarActiveTintColor = useThemeColor({ light: Colors.light.tint, dark: Colors.dark.tint }, "tint");
@@ -28,33 +40,18 @@ export default function TabLayout() {
         headerShown: false,
       }}
     >
-      <Tabs.Screen
-        name={TABS.index.id}
-        options={{
-          title: TABS.index.title,
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="home" size={24} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name={TABS.query.id}
-        options={{
-          title: TABS.query.title,
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="search" size={24} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name={TABS.socket.id}
-        options={{
-          title: TABS.socket.title,
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="group" size={24} color={color} />
-          ),
-        }}
-      />
+      {TABS.map(tab => (
+        <Tabs.Screen
+          key={tab.id}
+          name={tab.id}
+          options={{
+            title: tab.title,
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons size={28} name={tab.icon} color={color} />
+            ),
+          }}
+        />
+      ))}
     </Tabs>
   );
 }
