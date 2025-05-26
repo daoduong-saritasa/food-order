@@ -15,44 +15,33 @@ export default function QueryScreen() {
   if (isLoading) {
     return (
       <SafeAreaView className="flex-1 items-center justify-center">
-        <View>
-          <ActivityIndicator size="large" />
-        </View>
+        <ActivityIndicator size="large" />
       </SafeAreaView>
     );
   }
 
   const todoList = (item: MockTodo) => (
     <View key={item.id.toString()} className="flex-row py-2 gap-2">
-      <Text className="w-10">
-        {item.id}
-        .
-      </Text>
-      <Text className="flex flex-wrap flex-1">
-        {item.title}
-      </Text>
+      <Text className="w-10">{item.id}.</Text>
+      <Text className="flex flex-wrap flex-1">{item.title}</Text>
     </View>
   );
 
   return (
-    <SafeAreaView className="flex-1 items-center justify-center pb-16">
-      <View className="w-full">
-        {Platform.OS === "web" ? (
-          <div className="overflow-y-auto max-h-[calc(100vh-48px)] px-4">
-            {data?.map(todoList)}
-          </div>
-        ) : (
-          <FlatList
-            data={data}
-            renderItem={({ item }) => (
-              <View className="px-4">
-                {todoList(item)}
-              </View>
-            )}
-            keyExtractor={item => item.id.toString()}
-          />
-        )}
-      </View>
-    </SafeAreaView>
+    <View className="w-full">
+      {Platform.OS === "web" ? (
+        <div className="overflow-y-auto max-h-[calc(100vh-48px)] px-4">
+          {data?.map(todoList)}
+        </div>
+      ) : (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => (
+            <View className="px-4">{todoList(item)}</View>
+          )}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      )}
+    </View>
   );
 }

@@ -6,7 +6,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "../../global.css";
-import QueryProviders from "./provider";
+import QueryProviders from "./queryClientProvider";
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 

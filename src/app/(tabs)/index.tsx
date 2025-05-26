@@ -140,7 +140,7 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <View style={[styles.section, { paddingBottom: tabBarHeight }]}>
+        <View style={styles.section}>
           <Text style={styles.sectionTitle}>Quick Actions</Text>
           <View style={styles.quickActions}>
             <TouchableOpacity style={styles.actionButton}>
